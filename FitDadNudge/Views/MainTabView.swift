@@ -1,0 +1,104 @@
+import SwiftUI
+
+struct MainTabView: View {
+    @EnvironmentObject var appState: AppState
+    
+    var body: some View {
+        TabView(selection: $appState.selectedTab) {
+            ForEach(AppState.Tab.allCases, id: \.self) { tab in
+                tabContent(for: tab)
+                    .tabItem {
+                        Label(tab.title, systemImage: tab.systemImage)
+                    }
+                    .tag(tab)
+            }
+        }
+        .tint(.blue)
+    }
+    
+    @ViewBuilder
+    private func tabContent(for tab: AppState.Tab) -> some View {
+        switch tab {
+        case .home:
+            HomeView()
+        case .streaks:
+            StreaksView()
+        case .library:
+            LibraryView()
+        case .kids:
+            KidsView()
+        case .settings:
+            SettingsView()
+        }
+    }
+}
+
+// MARK: - Placeholder Views
+struct HomeView: View {
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 20) {
+                    Text("Your next workout gap")
+                        .font(.headline)
+                    
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.blue.opacity(0.2))
+                        .frame(height: 200)
+                        .overlay(
+                            VStack {
+                                Image(systemName: "figure.run")
+                                    .font(.system(size: 50))
+                                Text("No gaps detected")
+                                    .font(.caption)
+                            }
+                        )
+                        .padding()
+                }
+            }
+            .navigationTitle("FitDad Nudge")
+        }
+    }
+}
+
+struct StreaksView: View {
+    var body: some View {
+        NavigationStack {
+            Text("Streaks")
+                .navigationTitle("Streaks")
+        }
+    }
+}
+
+struct LibraryView: View {
+    var body: some View {
+        NavigationStack {
+            Text("Workout Library")
+                .navigationTitle("Library")
+        }
+    }
+}
+
+struct KidsView: View {
+    var body: some View {
+        NavigationStack {
+            Text("Kids Activities")
+                .navigationTitle("Kids")
+        }
+    }
+}
+
+struct SettingsView: View {
+    var body: some View {
+        NavigationStack {
+            Text("Settings")
+                .navigationTitle("Settings")
+        }
+    }
+}
+
+// MARK: - Preview
+#Preview {
+    MainTabView()
+        .environmentObject(AppState())
+} 

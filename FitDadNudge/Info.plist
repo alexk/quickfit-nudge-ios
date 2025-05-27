@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>NSCalendarsUsageDescription</key>
+    <string>FitDad Nudge needs access to your calendar to find the perfect workout gaps in your busy schedule.</string>
+    <key>NSCalendarsFullAccessUsageDescription</key>
+    <string>FitDad Nudge needs access to your calendar to find the perfect workout gaps in your busy schedule.</string>
+    <key>NSHealthShareUsageDescription</key>
+    <string>FitDad Nudge would like to read your health data to track your fitness progress.</string>
+    <key>NSHealthUpdateUsageDescription</key>
+    <string>FitDad Nudge would like to save your workout data to Apple Health.</string>
+    <key>NSUserNotificationsUsageDescription</key>
+    <string>FitDad Nudge will send you smart notifications when it's the perfect time for a quick workout.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>FitDad Nudge needs camera access to scan QR codes for social features.</string>
+    <key>NSMotionUsageDescription</key>
+    <string>FitDad Nudge uses motion data to automatically detect when you've completed a workout.</string>
+</dict>
+</plist> 
