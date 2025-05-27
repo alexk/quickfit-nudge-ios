@@ -100,37 +100,7 @@ struct CalendarGap: Identifiable {
     }
 }
 
-// MARK: - Workout Type
-enum WorkoutType: String, CaseIterable {
-    case hiit = "HIIT"
-    case stretching = "Stretching"
-    case strength = "Strength"
-    case cardio = "Cardio"
-    case dadKid = "Dad-Kid Challenge"
-    case breathing = "Breathing"
-    
-    var iconName: String {
-        switch self {
-        case .hiit: return "bolt.fill"
-        case .stretching: return "figure.flexibility"
-        case .strength: return "dumbbell.fill"
-        case .cardio: return "heart.circle.fill"
-        case .dadKid: return "figure.2.and.child.holdinghands"
-        case .breathing: return "wind"
-        }
-    }
-    
-    var recommendedDuration: Int {
-        switch self {
-        case .hiit: return 3
-        case .stretching: return 5
-        case .strength: return 5
-        case .cardio: return 3
-        case .dadKid: return 5
-        case .breathing: return 1
-        }
-    }
-}
+// WorkoutType is defined in Models/Workout.swift
 
 // MARK: - Gap Detection Engine
 final class GapDetectionEngine {
