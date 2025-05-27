@@ -38,23 +38,8 @@ struct MainTabView: View {
 
 // StreaksView is now defined in Views/Gamification/StreaksView.swift
 
-struct LibraryView: View {
-    var body: some View {
-        NavigationStack {
-            Text("Workout Library")
-                .navigationTitle("Library")
-        }
-    }
-}
-
-struct KidsView: View {
-    var body: some View {
-        NavigationStack {
-            Text("Kids Activities")
-                .navigationTitle("Kids")
-        }
-    }
-}
+// LibraryView is now defined in Views/Library/LibraryView.swift
+// KidsView is now defined in Views/Kids/KidsView.swift
 
 // SettingsView is now defined in Views/Settings/SettingsView.swift
 

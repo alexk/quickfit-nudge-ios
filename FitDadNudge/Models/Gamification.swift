@@ -184,7 +184,7 @@ struct LeaderboardEntry: Identifiable, Codable {
         self.lastUpdated = lastUpdated
     }
     
-    enum Timeframe: String, CaseIterable {
+    enum Timeframe: String, Codable, CaseIterable {
         case daily = "Today"
         case weekly = "This Week"
         case monthly = "This Month"
