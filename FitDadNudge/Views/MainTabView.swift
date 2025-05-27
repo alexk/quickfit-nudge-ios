@@ -34,32 +34,7 @@ struct MainTabView: View {
 }
 
 // MARK: - Placeholder Views
-struct HomeView: View {
-    var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 20) {
-                    Text("Your next workout gap")
-                        .font(.headline)
-                    
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.blue.opacity(0.2))
-                        .frame(height: 200)
-                        .overlay(
-                            VStack {
-                                Image(systemName: "figure.run")
-                                    .font(.system(size: 50))
-                                Text("No gaps detected")
-                                    .font(.caption)
-                            }
-                        )
-                        .padding()
-                }
-            }
-            .navigationTitle("FitDad Nudge")
-        }
-    }
-}
+// HomeView is now defined in Views/Home/HomeView.swift
 
 // StreaksView is now defined in Views/Gamification/StreaksView.swift
 
