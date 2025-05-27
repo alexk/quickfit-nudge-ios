@@ -1,5 +1,7 @@
 import SwiftUI
+#if canImport(UIKit)
 import UIKit
+#endif
 
 // MARK: - Accessibility Extensions
 extension View {
@@ -144,7 +146,22 @@ extension View {
     }
     
     func scaledFont(_ style: Font.TextStyle, size: CGFloat) -> Font {
-        return Font.system(size: UIFontMetrics(forTextStyle: UIFont.TextStyle(style)).scaledValue(for: size))
+        let uiStyle: UIFont.TextStyle
+        switch style {
+        case .largeTitle: uiStyle = .largeTitle
+        case .title: uiStyle = .title1
+        case .title2: uiStyle = .title2
+        case .title3: uiStyle = .title3
+        case .headline: uiStyle = .headline
+        case .subheadline: uiStyle = .subheadline
+        case .body: uiStyle = .body
+        case .callout: uiStyle = .callout
+        case .footnote: uiStyle = .footnote
+        case .caption: uiStyle = .caption1
+        case .caption2: uiStyle = .caption2
+        default: uiStyle = .body
+        }
+        return Font.system(size: UIFontMetrics(forTextStyle: uiStyle).scaledValue(for: size))
     }
 }
 
@@ -209,22 +226,4 @@ extension View {
     }
 }
 
-// MARK: - Font Style Extension
-extension Font.TextStyle {
-    init(_ textStyle: UIFont.TextStyle) {
-        switch textStyle {
-        case .largeTitle: self = .largeTitle
-        case .title1: self = .title
-        case .title2: self = .title2
-        case .title3: self = .title3
-        case .headline: self = .headline
-        case .subheadline: self = .subheadline
-        case .body: self = .body
-        case .callout: self = .callout
-        case .footnote: self = .footnote
-        case .caption1: self = .caption
-        case .caption2: self = .caption2
-        default: self = .body
-        }
-    }
-} 
+// Font.TextStyle extension removed - not needed 

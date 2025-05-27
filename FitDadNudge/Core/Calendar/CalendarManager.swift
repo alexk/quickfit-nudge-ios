@@ -18,19 +18,37 @@ final class CalendarManager: ObservableObject {
     // MARK: - Public Methods
     
     func requestCalendarAccess() async -> Bool {
-        do {
-            let granted = try await eventStore.requestFullAccessToEvents()
-            hasCalendarAccess = granted
-            
-            if granted {
-                await scanForGaps()
+        if #available(iOS 17.0, *) {
+            do {
+                let granted = try await eventStore.requestFullAccessToEvents()
+                hasCalendarAccess = granted
+                
+                if granted {
+                    await scanForGaps()
+                }
+                
+                return granted
+            } catch {
+                print("Error requesting calendar access: \(error)")
+                hasCalendarAccess = false
+                return false
             }
-            
-            return granted
-        } catch {
-            print("Error requesting calendar access: \(error)")
-            hasCalendarAccess = false
-            return false
+        } else {
+            // iOS 16 and earlier
+            return await withCheckedContinuation { continuation in
+                eventStore.requestAccess(to: .event) { granted, error in
+                    if let error = error {
+                        print("Error requesting calendar access: \(error)")
+                    }
+                    Task { @MainActor in
+                        self.hasCalendarAccess = granted
+                        if granted {
+                            await self.scanForGaps()
+                        }
+                        continuation.resume(returning: granted)
+                    }
+                }
+            }
         }
     }
     

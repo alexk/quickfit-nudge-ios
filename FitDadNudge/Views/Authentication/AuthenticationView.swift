@@ -73,17 +73,12 @@ struct AuthenticationView: View {
     }
     
     private func handleSignIn(_ result: Result<ASAuthorization, Error>) async {
-        do {
-            switch result {
-            case .success(let authorization):
-                                 // Temporarily handle sign in without the full auth manager
-                 // This will be connected properly once all files are in place
-                 print("Sign in successful with authorization: \(authorization)")
-            case .failure(let error):
-                errorMessage = error.localizedDescription
-                showError = true
-            }
-        } catch {
+        switch result {
+        case .success(let authorization):
+            // Temporarily handle sign in without the full auth manager
+            // This will be connected properly once all files are in place
+            print("Sign in successful with authorization: \(authorization)")
+        case .failure(let error):
             errorMessage = error.localizedDescription
             showError = true
         }

@@ -39,7 +39,11 @@ struct HomeView: View {
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: refreshGaps) {
+                    Button(action: {
+                        Task {
+                            await refreshGaps()
+                        }
+                    }) {
                         Image(systemName: "arrow.clockwise")
                     }
                 }

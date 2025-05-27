@@ -119,9 +119,18 @@ struct CalendarPermissionView: View {
     private func requestCalendarPermission() {
         let eventStore = EKEventStore()
         
-        eventStore.requestFullAccessToEvents { granted, error in
-            DispatchQueue.main.async {
-                permissionGranted = granted
+        if #available(iOS 17.0, *) {
+            eventStore.requestFullAccessToEvents { granted, error in
+                DispatchQueue.main.async {
+                    permissionGranted = granted
+                }
+            }
+        } else {
+            // iOS 16 and earlier
+            eventStore.requestAccess(to: .event) { granted, error in
+                DispatchQueue.main.async {
+                    permissionGranted = granted
+                }
             }
         }
     }
