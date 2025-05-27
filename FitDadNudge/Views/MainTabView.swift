@@ -56,14 +56,7 @@ struct KidsView: View {
     }
 }
 
-struct SettingsView: View {
-    var body: some View {
-        NavigationStack {
-            Text("Settings")
-                .navigationTitle("Settings")
-        }
-    }
-}
+// SettingsView is now defined in Views/Settings/SettingsView.swift
 
 // MARK: - Preview
 #Preview {
