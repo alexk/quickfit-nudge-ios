@@ -61,14 +61,7 @@ struct HomeView: View {
     }
 }
 
-struct StreaksView: View {
-    var body: some View {
-        NavigationStack {
-            Text("Streaks")
-                .navigationTitle("Streaks")
-        }
-    }
-}
+// StreaksView is now defined in Views/Gamification/StreaksView.swift
 
 struct LibraryView: View {
     var body: some View {
