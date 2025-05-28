@@ -205,7 +205,14 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
         case "SNOOZE_WORKOUT":
             // Reschedule for 30 minutes later
             Task {
-                guard let content = response.notification.request.content.mutableCopy() as? UNMutableNotificationContent else { completionHandler(); return }
+                // Create a new notification content based on the original
+                let content = UNMutableNotificationContent()
+                content.title = response.notification.request.content.title
+                content.body = response.notification.request.content.body
+                content.sound = response.notification.request.content.sound
+                content.categoryIdentifier = response.notification.request.content.categoryIdentifier
+                content.userInfo = response.notification.request.content.userInfo
+                
                 let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 30 * 60, repeats: false)
                 let request = UNNotificationRequest(
                     identifier: UUID().uuidString,
