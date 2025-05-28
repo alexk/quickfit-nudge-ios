@@ -39,6 +39,9 @@ struct SettingsView: View {
                 // Display Section
                 displaySection
                 
+                // Data & Export Section
+                dataExportSection
+                
                 // Support Section
                 supportSection
                 
@@ -181,6 +184,20 @@ struct SettingsView: View {
             
             Toggle(isOn: $hapticFeedbackEnabled) {
                 Label("Haptic Feedback", systemImage: "waveform")
+            }
+        }
+    }
+    
+    // MARK: - Data & Export Section
+    
+    private var dataExportSection: some View {
+        Section("Data & Export") {
+            NavigationLink(destination: ExportView()) {
+                Label("Export Workout History", systemImage: "square.and.arrow.up")
+            }
+            
+            NavigationLink(destination: ExportHistoryView()) {
+                Label("Export History", systemImage: "doc.badge.clock")
             }
         }
     }
