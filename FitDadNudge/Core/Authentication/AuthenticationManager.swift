@@ -37,7 +37,7 @@ final class AuthenticationManager: ObservableObject {
                 self.isAuthenticated = true
                 self.authState = .authenticated
             } catch {
-                print("Failed to fetch user: \(error)")
+                logError("Failed to fetch user: \(error)", category: .auth)
                 self.authState = .unauthenticated
                 keychainManager.deleteUserID()
             }

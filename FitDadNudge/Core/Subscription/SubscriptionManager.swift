@@ -42,9 +42,9 @@ final class SubscriptionManager: ObservableObject {
         
         do {
             subscriptions = try await Product.products(for: [monthlyProductID, yearlyProductID])
-            print("Loaded \(subscriptions.count) products")
+            logInfo("Loaded \(subscriptions.count) products", category: .subscription)
         } catch {
-            print("Failed to load products: \(error)")
+            logError("Failed to load products: \(error)", category: .subscription)
             self.error = error
         }
     }
@@ -81,7 +81,7 @@ final class SubscriptionManager: ObservableObject {
             try await AppStore.sync()
             await updateSubscriptionStatus()
         } catch {
-            print("Failed to restore purchases: \(error)")
+            logError("Failed to restore purchases: \(error)", category: .subscription)
             self.error = error
         }
     }
@@ -128,7 +128,7 @@ final class SubscriptionManager: ObservableObject {
             await updateSubscriptionStatus()
             await transaction.finish()
         } catch {
-            print("Transaction failed verification: \(error)")
+            logError("Transaction failed verification: \(error)", category: .subscription)
         }
     }
 }

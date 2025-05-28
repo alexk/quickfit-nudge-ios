@@ -37,7 +37,7 @@ final class KeychainManager {
         // Add new item
         let status = SecItemAdd(query as CFDictionary, nil)
         if status != errSecSuccess {
-            print("Error saving to keychain: \(status)")
+            logError("Error saving to keychain: \(status)", category: .auth)
         }
     }
     

@@ -27,7 +27,7 @@ final class WatchConnectivityManager: NSObject, ObservableObject {
     func sendWorkout(_ workout: Workout) {
         guard let session = session,
               session.isReachable else {
-            print("Watch not reachable")
+            logDebug("Watch not reachable", category: .watch)
             return
         }
         
@@ -37,10 +37,10 @@ final class WatchConnectivityManager: NSObject, ObservableObject {
             let message = ["workout": data]
             
             session.sendMessage(message, replyHandler: nil) { [weak self] error in
-                print("Error sending workout: \(error)")
+                logError("Error sending workout: \(error)", category: .watch)
             }
         } catch {
-            print("Error encoding workout: \(error)")
+            logError("Error encoding workout: \(error)", category: .watch)
         }
     }
     
@@ -56,7 +56,7 @@ final class WatchConnectivityManager: NSObject, ObservableObject {
             session.transferUserInfo(userInfo)
             lastSyncDate = Date()
         } catch {
-            print("Error encoding completion: \(error)")
+            logError("Error encoding completion: \(error)", category: .watch)
         }
     }
     
@@ -72,7 +72,7 @@ final class WatchConnectivityManager: NSObject, ObservableObject {
             // Update application context for latest state
             try session.updateApplicationContext(context)
         } catch {
-            print("Error syncing user data: \(error)")
+            logError("Error syncing user data: \(error)", category: .watch)
         }
     }
     
@@ -86,7 +86,7 @@ final class WatchConnectivityManager: NSObject, ObservableObject {
                 self.handleReceivedWorkouts(workoutsData)
             }
         }) { error in
-            print("Error requesting workout library: \(error)")
+            logError("Error requesting workout library: \(error)", category: .watch)
         }
     }
     
@@ -104,7 +104,7 @@ final class WatchConnectivityManager: NSObject, ObservableObject {
                 userInfo: ["workouts": workouts]
             )
         } catch {
-            print("Error decoding workouts: \(error)")
+            logError("Error decoding workouts: \(error)", category: .watch)
         }
     }
     
@@ -125,13 +125,13 @@ final class WatchConnectivityManager: NSObject, ObservableObject {
                 userInfo: ["completion": completion]
             )
         } catch {
-            print("Error decoding completion: \(error)")
+            logError("Error decoding completion: \(error)", category: .watch)
         }
     }
     
     private func saveCompletionToCloudKit(_ completion: WorkoutCompletion) async {
         // Save to CloudKit (implementation depends on CloudKit manager)
-        print("Saving workout completion from watch: \(completion.id)")
+        logInfo("Saving workout completion from watch: \(completion.id)", category: .cloudKit)
     }
 }
 
@@ -141,20 +141,20 @@ extension WatchConnectivityManager: WCSessionDelegate {
     nonisolated func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         Task { @MainActor in
             if let error = error {
-                print("WCSession activation failed: \(error)")
+                logError("WCSession activation failed: \(error)", category: .watch)
             } else {
-                print("WCSession activated with state: \(activationState.rawValue)")
+                logInfo("WCSession activated with state: \(activationState.rawValue)", category: .watch)
                 updateSessionState()
             }
         }
     }
     
     nonisolated func sessionDidBecomeInactive(_ session: WCSession) {
-        print("WCSession became inactive")
+        logInfo("WCSession became inactive", category: .watch)
     }
     
     nonisolated func sessionDidDeactivate(_ session: WCSession) {
-        print("WCSession deactivated")
+        logInfo("WCSession deactivated", category: .watch)
         // Reactivate session
         session.activate()
     }
@@ -254,10 +254,10 @@ extension WatchConnectivityManager: WCSessionDelegate {
             let message = ["workouts": data]
             
             session?.sendMessage(message, replyHandler: nil, errorHandler: { [weak self] error in
-                print("Error sending workout library: \(error)")
+                logError("Error sending workout library: \(error)", category: .watch)
             })
         } catch {
-            print("Error encoding workout library: \(error)")
+            logError("Error encoding workout library: \(error)", category: .watch)
         }
     }
     

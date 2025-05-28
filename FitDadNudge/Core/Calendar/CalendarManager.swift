@@ -29,7 +29,7 @@ final class CalendarManager: ObservableObject {
                 
                 return granted
             } catch {
-                print("Error requesting calendar access: \(error)")
+                logError("Error requesting calendar access: \(error)", category: .calendar)
                 hasCalendarAccess = false
                 return false
             }
@@ -38,7 +38,7 @@ final class CalendarManager: ObservableObject {
             return await withCheckedContinuation { continuation in
                 eventStore.requestAccess(to: .event) { granted, error in
                     if let error = error {
-                        print("Error requesting calendar access: \(error)")
+                        logError("Error requesting calendar access: \(error)", category: .calendar)
                     }
                     Task { @MainActor in
                         self.hasCalendarAccess = granted

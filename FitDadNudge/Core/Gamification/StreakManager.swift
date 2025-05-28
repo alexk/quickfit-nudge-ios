@@ -221,7 +221,7 @@ final class StreakManager: ObservableObject {
     private func saveStreaksToCloudKit() async {
         // Save streaks to CloudKit
         // Implementation depends on CloudKit manager
-        print("Saving streaks to CloudKit")
+        logInfo("Saving streaks to CloudKit", category: .cloudKit)
     }
 }
 

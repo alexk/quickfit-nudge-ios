@@ -320,7 +320,7 @@ class WatchWorkoutManager: ObservableObject {
             workoutSession = try HKWorkoutSession(healthStore: healthStore, configuration: configuration)
             healthStore.start(workoutSession!)
         } catch {
-            print("Failed to start workout session: \(error)")
+            logError("Failed to start workout session: \(error)", category: .watch)
         }
     }
 } 

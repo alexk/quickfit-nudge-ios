@@ -6,7 +6,7 @@ enum WorkoutType: String, Codable, CaseIterable {
     case stretching = "Stretching"
     case strength = "Strength"
     case cardio = "Cardio"
-    case dadKid = "Dad-Kid Challenge"
+    case dadKid = "Family Challenge"
     case breathing = "Breathing"
     
     var iconName: String {
@@ -44,7 +44,7 @@ struct Workout: Identifiable, Codable {
     let videoURL: String?
     let equipment: [Equipment]
     let targetMuscles: [MuscleGroup]
-    let isDadKidFriendly: Bool
+    let isFamilyFriendly: Bool
     let minimumAge: Int?
     
     init(
@@ -58,7 +58,7 @@ struct Workout: Identifiable, Codable {
         videoURL: String? = nil,
         equipment: [Equipment] = [],
         targetMuscles: [MuscleGroup] = [],
-        isDadKidFriendly: Bool = false,
+        isFamilyFriendly: Bool = false,
         minimumAge: Int? = nil
     ) {
         self.id = id
@@ -71,7 +71,7 @@ struct Workout: Identifiable, Codable {
         self.videoURL = videoURL
         self.equipment = equipment
         self.targetMuscles = targetMuscles
-        self.isDadKidFriendly = isDadKidFriendly
+        self.isFamilyFriendly = isFamilyFriendly
         self.minimumAge = minimumAge
     }
     

@@ -24,7 +24,7 @@ final class NotificationManager: ObservableObject {
             await checkAuthorizationStatus()
             return granted
         } catch {
-            print("Error requesting notification authorization: \(error)")
+            logError("Error requesting notification authorization: \(error)", category: .notification)
             return false
         }
     }

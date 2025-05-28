@@ -65,7 +65,7 @@ final class CloudKitManager: ObservableObject {
                         results.append(user)
                     }
                 case .failure(let error):
-                    print("Failed to fetch record: \(error)")
+                    logError("Failed to fetch record: \(error)", category: .cloudKit)
                 }
             }
         } catch {
