@@ -231,26 +231,26 @@ extension Streak {
         switch type {
         case .daily:
             if currentCount == 0 {
-                return "Start your daily streak today!"
+                return "Every fitness journey starts with day one"
             } else if currentCount < 7 {
-                return "Keep it up! \(currentCount) days strong!"
+                return "Building momentum - \(currentCount) days and counting!"
             } else if currentCount < 30 {
-                return "Amazing! \(currentCount) days of dedication!"
+                return "You're on fire! \(currentCount) days of showing up!"
             } else {
-                return "Legendary! \(currentCount) days of pure commitment!"
+                return "Legend status: \(currentCount) consecutive days!"
             }
             
         case .weekly:
-            return "Week \(currentCount): Crushing your goals!"
+            return "Week \(currentCount) champion - your dedication is inspiring"
             
         case .dadKid:
-            return "\(currentCount) activities with your little champion!"
+            return "\(currentCount) awesome moments with your little workout buddy!"
             
         case .earlyBird:
-            return "\(currentCount) sunrise sessions completed!"
+            return "\(currentCount) early morning victories - before the world wakes up!"
             
         case .consistency:
-            return "Consistency level: \(currentCount) weeks!"
+            return "The steady achiever: \(currentCount) weeks of reliable self-care"
         }
     }
     

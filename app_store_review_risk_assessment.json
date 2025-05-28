@@ -1,0 +1,179 @@
+{
+  "rejection_risks": [
+    {
+      "risk": "CRITICAL",
+      "reason": "App crashes due to force unwrapping",
+      "guideline": "2.1 - App Completeness",
+      "specific_issue": "Force unwrapping in CalendarManager.swift lines 232, 234",
+      "fix_required": true,
+      "fix_complexity": "simple",
+      "fix_time": "30 minutes"
+    },
+    {
+      "risk": "CRITICAL",
+      "reason": "Missing app icon",
+      "guideline": "2.1 - App Completeness",
+      "specific_issue": "No 1024x1024 app icon in Assets.xcassets",
+      "fix_required": true,
+      "fix_complexity": "simple",
+      "fix_time": "1 hour"
+    },
+    {
+      "risk": "HIGH",
+      "reason": "In-App Purchase products not configured",
+      "guideline": "3.1.1 - In-App Purchase",
+      "specific_issue": "Subscription products referenced but not created in App Store Connect",
+      "fix_required": true,
+      "fix_complexity": "medium",
+      "fix_time": "1 hour"
+    },
+    {
+      "risk": "HIGH",
+      "reason": "CloudKit container not configured",
+      "guideline": "2.1 - App Completeness",
+      "specific_issue": "iCloud.com.fitdad.nudge container referenced but not created",
+      "fix_required": true,
+      "fix_complexity": "medium",
+      "fix_time": "2 hours"
+    },
+    {
+      "risk": "MEDIUM",
+      "reason": "Incomplete mock features",
+      "guideline": "2.1 - App Completeness",
+      "specific_issue": "StreakManager returns mock data instead of real implementation",
+      "fix_required": true,
+      "fix_complexity": "complex",
+      "fix_time": "4 hours"
+    },
+    {
+      "risk": "MEDIUM",
+      "reason": "Missing privacy manifest",
+      "guideline": "5.1 - Privacy",
+      "specific_issue": "iOS 17+ requires PrivacyInfo.xcprivacy for apps using certain APIs",
+      "fix_required": true,
+      "fix_complexity": "simple",
+      "fix_time": "1 hour"
+    },
+    {
+      "risk": "LOW",
+      "reason": "Generic loading screen",
+      "guideline": "4.0 - Design",
+      "specific_issue": "Gray loading screen looks unfinished",
+      "fix_required": false,
+      "fix_complexity": "simple",
+      "fix_time": "30 minutes"
+    }
+  ],
+  "submission_blockers": [
+    "App crashes on CalendarManager.randomElement() calls",
+    "No app icon - automatic rejection",
+    "CloudKit container 'iCloud.com.fitdad.nudge' not created",
+    "In-App Purchase products not configured in App Store Connect",
+    "Missing required Info.plist keys",
+    "No screenshots uploaded to App Store Connect",
+    "Privacy policy URL not provided"
+  ],
+  "potential_delays": [
+    {
+      "issue": "Subscription implementation",
+      "impact": "Additional review time for IAP",
+      "mitigation": "Ensure clear subscription terms and proper StoreKit implementation"
+    },
+    {
+      "issue": "HealthKit usage",
+      "impact": "Additional privacy review",
+      "mitigation": "Ensure clear usage description and only access needed data"
+    },
+    {
+      "issue": "Calendar access",
+      "impact": "Privacy review for calendar data",
+      "mitigation": "Clear usage description explaining gap detection feature"
+    }
+  ],
+  "compliance_matrix": {
+    "guidelines": {
+      "1.0_safety": {
+        "status": "PASS",
+        "notes": "No objectionable content"
+      },
+      "2.1_app_completeness": {
+        "status": "FAIL",
+        "issues": ["Crashes", "Missing icon", "Mock data"]
+      },
+      "2.3_accurate_metadata": {
+        "status": "PENDING",
+        "issues": ["Need to create app description", "Screenshots required"]
+      },
+      "3.1_payments": {
+        "status": "FAIL",
+        "issues": ["IAP products not created"]
+      },
+      "4.0_design": {
+        "status": "WARNING",
+        "issues": ["Generic loading screen", "Missing accessibility labels"]
+      },
+      "5.1_privacy": {
+        "status": "WARNING",
+        "issues": ["Privacy manifest recommended", "Privacy policy URL needed"]
+      }
+    }
+  },
+  "review_time_estimates": {
+    "standard_review": "7 days",
+    "expedited_review": "1-2 days",
+    "factors_that_may_delay": [
+      "First-time submission",
+      "Subscription implementation",
+      "HealthKit usage",
+      "Calendar data access"
+    ],
+    "recommended_approach": "Fix all critical issues before first submission to avoid rejection cycle"
+  },
+  "pre_submission_recommendations": [
+    {
+      "priority": 1,
+      "action": "Fix all force unwrapping immediately",
+      "reason": "Will crash and get rejected"
+    },
+    {
+      "priority": 2,
+      "action": "Add app icon",
+      "reason": "Cannot submit without icon"
+    },
+    {
+      "priority": 3,
+      "action": "Create CloudKit container and IAP products",
+      "reason": "Core functionality won't work"
+    },
+    {
+      "priority": 4,
+      "action": "Complete Info.plist configuration",
+      "reason": "Required for submission"
+    },
+    {
+      "priority": 5,
+      "action": "Implement real data instead of mocks",
+      "reason": "App appears incomplete"
+    },
+    {
+      "priority": 6,
+      "action": "Add launch screen and polish UI",
+      "reason": "Professional appearance"
+    },
+    {
+      "priority": 7,
+      "action": "Test thoroughly on physical devices",
+      "reason": "Catch issues before review"
+    }
+  ],
+  "success_probability": {
+    "current_state": "10%",
+    "after_critical_fixes": "60%",
+    "after_all_fixes": "95%",
+    "main_risk_factors": [
+      "Crashes will cause immediate rejection",
+      "Missing configurations prevent core features",
+      "Incomplete implementation appears unfinished"
+    ]
+  }
+}

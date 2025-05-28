@@ -1,0 +1,258 @@
+{
+  "immediate_actions": [
+    {
+      "id": "SETUP001",
+      "category": "app_icon",
+      "task": "Create and add App Icon",
+      "steps": [
+        "1. Create 1024x1024 app icon design",
+        "2. Export without alpha channel as PNG",
+        "3. Open Assets.xcassets in Xcode",
+        "4. Drag icon to AppIcon asset",
+        "5. Xcode will generate all required sizes",
+        "6. Verify all slots are filled"
+      ],
+      "required_for": "App Store submission - will be rejected without icon",
+      "deadline": "before_submission",
+      "estimated_time": "1-2 hours"
+    },
+    {
+      "id": "SETUP002",
+      "category": "launch_screen",
+      "task": "Create Launch Screen",
+      "steps": [
+        "1. Create LaunchScreen.storyboard in Xcode",
+        "2. Add app logo and/or branding",
+        "3. Set as Launch Screen File in project settings",
+        "4. Test on multiple device sizes",
+        "5. Ensure no text (for localization)"
+      ],
+      "required_for": "Professional app appearance",
+      "deadline": "before_submission",
+      "estimated_time": "1 hour"
+    },
+    {
+      "id": "SETUP003",
+      "category": "cloudkit",
+      "task": "Configure CloudKit Container",
+      "steps": [
+        "1. Log into Apple Developer Portal",
+        "2. Navigate to Certificates, Identifiers & Profiles",
+        "3. Create CloudKit container 'iCloud.com.fitdad.nudge'",
+        "4. Configure record types: Users, Workouts, Completions, Streaks, Achievements",
+        "5. Set up indexes for userId fields",
+        "6. Configure security roles",
+        "7. Test in CloudKit Dashboard"
+      ],
+      "required_for": "All app data sync functionality",
+      "deadline": "before_submission",
+      "estimated_time": "2 hours"
+    },
+    {
+      "id": "SETUP004",
+      "category": "storekit",
+      "task": "Create In-App Purchase Products",
+      "steps": [
+        "1. Log into App Store Connect",
+        "2. Create new app record if not exists",
+        "3. Navigate to In-App Purchases",
+        "4. Create Auto-Renewable Subscription: com.fitdad.nudge.monthly ($4.99)",
+        "5. Create Auto-Renewable Subscription: com.fitdad.nudge.yearly ($39.99)",
+        "6. Set up subscription group",
+        "7. Configure free trial if desired",
+        "8. Submit for review"
+      ],
+      "required_for": "Subscription functionality to work",
+      "deadline": "before_submission",
+      "estimated_time": "1 hour"
+    },
+    {
+      "id": "SETUP005",
+      "category": "privacy",
+      "task": "Create Privacy Policy",
+      "steps": [
+        "1. Create privacy policy covering:",
+        "   - HealthKit data usage",
+        "   - Calendar access",
+        "   - CloudKit sync",
+        "   - Analytics (if using Amplitude)",
+        "2. Host on website",
+        "3. Add URL to App Store Connect",
+        "4. Add URL to app settings"
+      ],
+      "required_for": "App Store requirement for apps collecting data",
+      "deadline": "before_submission",
+      "estimated_time": "2 hours"
+    }
+  ],
+  "configuration_replacements": [
+    {
+      "id": "CONFIG001",
+      "file": "FitDadNudge.xcodeproj/project.pbxproj",
+      "line": 307,
+      "placeholder": "6QN8GLT3C9",
+      "description": "Replace with your Apple Developer Team ID",
+      "service_signup_required": true,
+      "service_url": "https://developer.apple.com/account",
+      "instructions": "Find in Membership section of Apple Developer account"
+    },
+    {
+      "id": "CONFIG002",
+      "file": "FitDadNudge/Core/Analytics/AnalyticsManager.swift",
+      "line": 16,
+      "placeholder": "// Amplitude.instance.initializeApiKey(\"YOUR_API_KEY\")",
+      "description": "Uncomment and add Amplitude API key",
+      "service_signup_required": true,
+      "service_url": "https://amplitude.com",
+      "instructions": "Sign up for Amplitude, create iOS app, get API key from settings"
+    },
+    {
+      "id": "CONFIG003",
+      "file": "env.example",
+      "line": 0,
+      "placeholder": "Multiple environment variables",
+      "description": "Create .env file with production values",
+      "service_signup_required": false,
+      "instructions": "Copy env.example to .env and fill in all values"
+    }
+  ],
+  "service_registrations": [
+    {
+      "service": "Apple Developer Program",
+      "required_for": "App Store distribution",
+      "steps": [
+        "1. Go to developer.apple.com",
+        "2. Enroll in Apple Developer Program ($99/year)",
+        "3. Wait for approval (usually 24-48 hours)",
+        "4. Create App ID for com.fitdad.nudge",
+        "5. Configure capabilities: HealthKit, CloudKit, In-App Purchase, Push Notifications"
+      ],
+      "configuration_keys_needed": [
+        "DEVELOPMENT_TEAM",
+        "Bundle Identifier"
+      ],
+      "estimated_time": "1-2 days for approval"
+    },
+    {
+      "service": "Amplitude Analytics (Optional)",
+      "required_for": "User analytics and insights",
+      "steps": [
+        "1. Sign up at amplitude.com",
+        "2. Create new project for iOS",
+        "3. Get API key from project settings",
+        "4. Install Amplitude SDK via SPM",
+        "5. Initialize in AnalyticsManager.swift"
+      ],
+      "configuration_keys_needed": [
+        "AMPLITUDE_API_KEY"
+      ],
+      "estimated_time": "30 minutes"
+    }
+  ],
+  "app_store_connect_tasks": [
+    {
+      "task": "Create App Record",
+      "steps": [
+        "1. Log into App Store Connect",
+        "2. Click + to create new app",
+        "3. Select iOS platform",
+        "4. Enter app name: FitDad Nudge",
+        "5. Select primary language",
+        "6. Choose bundle ID: com.fitdad.nudge",
+        "7. Set SKU (unique identifier)",
+        "8. Select app access (Full Access)"
+      ],
+      "required": true
+    },
+    {
+      "task": "App Store Metadata",
+      "steps": [
+        "1. Write app description (max 4000 chars)",
+        "2. Write promotional text (max 170 chars)",
+        "3. Add keywords (max 100 chars, comma-separated)",
+        "4. Select primary category: Health & Fitness",
+        "5. Select secondary category: Lifestyle",
+        "6. Set age rating: 4+",
+        "7. Add support URL",
+        "8. Add marketing URL (optional)"
+      ],
+      "required": true
+    },
+    {
+      "task": "Screenshots",
+      "steps": [
+        "1. Take screenshots on required devices:",
+        "   - 6.7\" (iPhone 15 Pro Max)",
+        "   - 6.5\" (iPhone 14 Plus)",
+        "   - 5.5\" (iPhone 8 Plus) - optional",
+        "   - 12.9\" iPad Pro - if supporting iPad",
+        "2. Show key features: workout player, calendar gaps, streaks",
+        "3. Remove status bar or use clean status",
+        "4. Add marketing text if desired",
+        "5. Upload in App Store Connect"
+      ],
+      "required": true
+    }
+  ],
+  "asset_requirements": [
+    {
+      "type": "app_icon",
+      "missing": ["1024x1024"],
+      "specifications": "PNG, no alpha channel, no rounded corners",
+      "tool_recommendation": "Use Xcode asset catalog to generate all sizes"
+    },
+    {
+      "type": "launch_screen",
+      "missing": ["LaunchScreen.storyboard"],
+      "specifications": "Storyboard or XIB, no text for localization",
+      "tool_recommendation": "Create in Interface Builder"
+    },
+    {
+      "type": "screenshots",
+      "missing": ["6.7_inch", "6.5_inch"],
+      "specifications": "PNG or JPEG, exact device dimensions, no alpha",
+      "tool_recommendation": "Use Xcode simulator or physical device"
+    },
+    {
+      "type": "privacy_manifest",
+      "missing": ["PrivacyInfo.xcprivacy"],
+      "specifications": "Required for iOS 17+ if using certain APIs",
+      "tool_recommendation": "Create in Xcode, declare all data usage"
+    }
+  ],
+  "testing_requirements": [
+    {
+      "area": "Device Testing",
+      "devices_needed": [
+        "iPhone SE (smallest screen)",
+        "iPhone 15 Pro Max (largest screen)",
+        "Device with iOS 16 (minimum supported)"
+      ],
+      "test_scenarios": [
+        "Fresh install",
+        "Upgrade from TestFlight",
+        "Different iOS versions",
+        "Low storage conditions"
+      ]
+    },
+    {
+      "area": "StoreKit Testing",
+      "requirements": [
+        "Sandbox test account",
+        "Test purchase flow",
+        "Test restore purchases",
+        "Test subscription upgrade/downgrade",
+        "Test receipt validation"
+      ]
+    },
+    {
+      "area": "CloudKit Testing",
+      "requirements": [
+        "Test with different iCloud accounts",
+        "Test sync between devices",
+        "Test offline/online transitions",
+        "Test data conflicts"
+      ]
+    }
+  ]
+}

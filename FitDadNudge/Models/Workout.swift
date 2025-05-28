@@ -204,6 +204,11 @@ class WorkoutSession: ObservableObject {
         self.workout = workout
     }
     
+    deinit {
+        timer?.invalidate()
+        timer = nil
+    }
+    
     func start() {
         startTime = Date()
         isPaused = false
@@ -238,7 +243,8 @@ class WorkoutSession: ObservableObject {
     }
     
     private func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
             if let startTime = self.startTime {
                 self.elapsedTime = Date().timeIntervalSince(startTime)
                 

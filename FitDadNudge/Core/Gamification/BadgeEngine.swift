@@ -121,8 +121,8 @@ final class BadgeEngine: ObservableObject {
             ),
             Achievement(
                 type: .dadOfTheYear,
-                name: "Dad of the Year",
-                description: "Complete 50 dad-kid workouts",
+                name: "Family Fitness Champion",
+                description: "Complete 50 family workouts",
                 iconName: "figure.2.and.child.holdinghands",
                 target: 50
             ),
@@ -307,8 +307,8 @@ final class BadgeEngine: ObservableObject {
     private func scheduleAchievementNotification(_ achievement: Achievement) {
         Task {
             let content = UNMutableNotificationContent()
-            content.title = "Achievement Unlocked! 🏆"
-            content.body = "\(achievement.name): \(achievement.description)"
+            content.title = "Achievement unlocked! 🏆"
+            content.body = "You earned \(achievement.name) - \(achievement.description)"
             content.sound = .default
             content.categoryIdentifier = "ACHIEVEMENT"
             

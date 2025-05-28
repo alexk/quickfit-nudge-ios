@@ -25,12 +25,12 @@ struct AuthenticationView: View {
                         .foregroundColor(.white)
                         .shadow(radius: 10)
                     
-                    Text("FitDad Nudge")
+                    Text("QuickFit Nudge")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                     
-                    Text("Micro-workouts for busy dads")
+                    Text("Micro-workouts for busy people")
                         .font(.headline)
                         .foregroundColor(.white.opacity(0.9))
                 }

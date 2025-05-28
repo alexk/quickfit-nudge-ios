@@ -53,7 +53,7 @@ final class AppState: ObservableObject {
     }
     
     func checkOnboardingStatus() {
-        hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "hasCompletedOnboarding")
+        hasCompletedOnboarding = UserDefaults.standard.object(forKey: "hasCompletedOnboarding") as? Bool ?? false
         showingOnboarding = !hasCompletedOnboarding
     }
     

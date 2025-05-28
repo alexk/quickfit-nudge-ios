@@ -251,10 +251,10 @@ struct NoGapsCard: View {
                 .font(.largeTitle)
                 .foregroundStyle(.secondary)
             
-            Text("No workout gaps found")
+            Text("Packed schedule today")
                 .font(.headline)
             
-            Text("Your calendar is fully booked! Try a quick workout anyway?")
+            Text("That's busy life! Even 2 minutes between tasks counts.")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)

@@ -46,8 +46,8 @@ final class NotificationManager: ObservableObject {
         guard triggerDate > Date() else { return }
         
         let content = UNMutableNotificationContent()
-        content.title = "Workout Time!"
-        content.body = "You have a \(gap.durationInMinutes)-minute gap coming up. Perfect for a quick \(gap.suggestedWorkoutType.rawValue) workout!"
+        content.title = "Perfect timing!"
+        content.body = "You've got \(gap.durationInMinutes) minutes before your next meeting. How about a quick \(gap.suggestedWorkoutType.rawValue.lowercased()) session?"
         content.sound = .default
         content.categoryIdentifier = "WORKOUT_REMINDER"
         content.userInfo = [
@@ -89,8 +89,8 @@ final class NotificationManager: ObservableObject {
         }
         
         let content = UNMutableNotificationContent()
-        content.title = "Keep Your Streak Alive!"
-        content.body = "Don't forget to complete a workout today to maintain your streak 🔥"
+        content.title = "Your streak is counting on you"
+        content.body = "Just a few minutes today keeps your momentum going strong 🔥"
         content.sound = .default
         content.categoryIdentifier = "STREAK_REMINDER"
         
@@ -164,9 +164,9 @@ enum NotificationError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notAuthorized:
-            return "Notification permissions not granted"
+            return "We'd love to send you workout reminders, but need permission first"
         case .schedulingFailed(let error):
-            return "Failed to schedule notification: \(error.localizedDescription)"
+            return "Couldn't set up your workout reminder - \(error.localizedDescription)"
         }
     }
 }
@@ -205,7 +205,7 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
         case "SNOOZE_WORKOUT":
             // Reschedule for 30 minutes later
             Task {
-                let content = response.notification.request.content.mutableCopy() as! UNMutableNotificationContent
+                guard let content = response.notification.request.content.mutableCopy() as? UNMutableNotificationContent else { completionHandler(); return }
                 let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 30 * 60, repeats: false)
                 let request = UNNotificationRequest(
                     identifier: UUID().uuidString,

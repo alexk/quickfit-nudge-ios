@@ -42,12 +42,12 @@ struct WelcomeView: View {
                 .foregroundStyle(.blue.gradient)
             
             VStack(spacing: 15) {
-                Text("Welcome to FitDad Nudge")
+                Text("Welcome to QuickFit Nudge")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)
                 
-                Text("Stay fit with micro-workouts that fit into your busy dad schedule")
+                Text("Stay fit with micro-workouts that fit into your busy schedule")
                     .font(.title3)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)

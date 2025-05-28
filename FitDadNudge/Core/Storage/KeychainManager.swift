@@ -22,7 +22,7 @@ final class KeychainManager {
     // MARK: - Generic Keychain Operations
     
     private func save(_ value: String, for key: String) {
-        let data = value.data(using: .utf8)!
+        guard let data = value.data(using: .utf8) else { return }
         
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,

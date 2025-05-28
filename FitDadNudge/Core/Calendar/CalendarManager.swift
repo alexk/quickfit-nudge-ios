@@ -160,11 +160,12 @@ final class GapDetectionEngine {
         }
         
         // Check gap after last event
-        if let lastEvent = sortedEvents.last {
-            let gapDuration = endDate.timeIntervalSince(lastEvent.endDate)
+        if let lastEvent = sortedEvents.last,
+           let lastEventEndDate = lastEvent.endDate {
+            let gapDuration = endDate.timeIntervalSince(lastEventEndDate)
             if gapDuration >= 60 && gapDuration <= 300 {
                 gaps.append(createGap(
-                    start: lastEvent.endDate,
+                    start: lastEventEndDate,
                     end: endDate,
                     duration: gapDuration
                 ))
@@ -229,9 +230,9 @@ final class GapDetectionEngine {
         case 2:
             return .stretching
         case 3:
-            return [.hiit, .cardio].randomElement()!
+            return [.hiit, .cardio].randomElement() ?? .hiit
         case 4...5:
-            return [.strength, .dadKid, .stretching].randomElement()!
+            return [.strength, .dadKid, .stretching].randomElement() ?? .strength
         default:
             return .stretching
         }

@@ -1,0 +1,284 @@
+{
+  "title": "FitDadNudge - Critical Issues Implementation Plan",
+  "description": "Implementation plan to fix critical code issues found in production readiness review",
+  "estimated_hours": 40,
+  "priority": "CRITICAL",
+  "milestones": [
+    {
+      "id": "M1",
+      "title": "Fix Force Unwrapping & Crash Risks",
+      "description": "Replace all force unwrapping with safe optional handling",
+      "priority": "CRITICAL",
+      "estimated_hours": 8,
+      "tasks": [
+        {
+          "id": "M1T1",
+          "title": "Fix CalendarManager Force Unwrapping",
+          "description": "Replace .randomElement()! with safe alternative in CalendarManager.swift lines 232, 234",
+          "file_paths": ["FitDadNudge/Core/Calendar/CalendarManager.swift"],
+          "implementation_details": {
+            "problem": "Force unwrapping .randomElement() can crash if array is empty",
+            "solution": "Use nil coalescing operator with default fallback",
+            "code_changes": [
+              {
+                "file": "FitDadNudge/Core/Calendar/CalendarManager.swift",
+                "line": 232,
+                "old_code": "return [.hiit, .cardio].randomElement()!",
+                "new_code": "return [.hiit, .cardio].randomElement() ?? .hiit"
+              },
+              {
+                "file": "FitDadNudge/Core/Calendar/CalendarManager.swift", 
+                "line": 234,
+                "old_code": "return [.strength, .dadKid, .stretching].randomElement()!",
+                "new_code": "return [.strength, .dadKid, .stretching].randomElement() ?? .strength"
+              }
+            ]
+          }
+        },
+        {
+          "id": "M1T2",
+          "title": "Audit and Fix All Force Unwrapping",
+          "description": "Search entire codebase for force unwrapping and replace with safe alternatives",
+          "file_paths": ["**/*.swift"],
+          "implementation_details": {
+            "search_patterns": ["!", "try!", "as!"],
+            "review_areas": [
+              "JSON decoding operations",
+              "URL construction",
+              "Array/Dictionary access",
+              "Type casting",
+              "Resource loading"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M2", 
+      "title": "Add Comprehensive Error Handling",
+      "description": "Implement proper error handling for all network and CloudKit operations",
+      "priority": "HIGH",
+      "estimated_hours": 12,
+      "tasks": [
+        {
+          "id": "M2T1",
+          "title": "Enhance CloudKit Error Handling",
+          "description": "Add proper error handling and user feedback for CloudKit operations",
+          "file_paths": ["FitDadNudge/Core/CloudKit/CloudKitManager.swift"],
+          "implementation_details": {
+            "add_error_types": [
+              "CloudKitError enum with user-friendly messages",
+              "Network connectivity error handling",
+              "Account status checking",
+              "Quota limit handling"
+            ],
+            "user_feedback": "Show appropriate error messages to users instead of silent failures"
+          }
+        },
+        {
+          "id": "M2T2",
+          "title": "Add Network Error Handling",
+          "description": "Implement retry logic and error recovery for network operations",
+          "file_paths": ["FitDadNudge/Core/Analytics/AnalyticsManager.swift"],
+          "implementation_details": {
+            "retry_logic": "Exponential backoff for failed requests",
+            "offline_support": "Queue events when offline and retry when online"
+          }
+        },
+        {
+          "id": "M2T3",
+          "title": "Calendar Permission Error Handling",
+          "description": "Add proper error handling for calendar permission failures",
+          "file_paths": ["FitDadNudge/Core/Calendar/CalendarManager.swift"],
+          "implementation_details": {
+            "permission_states": [
+              "Not determined - show permission request",
+              "Denied - show settings redirect",
+              "Restricted - show appropriate message"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M3",
+      "title": "Implement Local Data Persistence", 
+      "description": "Add Core Data or SQLite for offline support and data caching",
+      "priority": "HIGH",
+      "estimated_hours": 10,
+      "tasks": [
+        {
+          "id": "M3T1",
+          "title": "Design Core Data Model",
+          "description": "Create Core Data model for offline data storage",
+          "file_paths": ["FitDadNudge/Core/Storage/CoreDataModel.xcdatamodeld"],
+          "implementation_details": {
+            "entities": [
+              "CachedWorkout",
+              "CachedCompletion", 
+              "CachedUser",
+              "CachedStreak",
+              "CachedAchievement"
+            ],
+            "relationships": "Establish proper relationships between entities"
+          }
+        },
+        {
+          "id": "M3T2",
+          "title": "Implement Core Data Manager",
+          "description": "Create manager class for Core Data operations",
+          "file_paths": ["FitDadNudge/Core/Storage/CoreDataManager.swift"],
+          "implementation_details": {
+            "operations": [
+              "Save/fetch operations",
+              "Background context handling",
+              "Merge conflict resolution",
+              "Migration handling"
+            ]
+          }
+        },
+        {
+          "id": "M3T3", 
+          "title": "Add Offline Sync Logic",
+          "description": "Implement sync between local and CloudKit data",
+          "file_paths": ["FitDadNudge/Core/CloudKit/CloudKitManager.swift"],
+          "implementation_details": {
+            "sync_strategy": "Bidirectional sync with conflict resolution",
+            "offline_queue": "Queue operations when offline"
+          }
+        }
+      ]
+    },
+    {
+      "id": "M4",
+      "title": "Remove Debug Code & Add Production Logging",
+      "description": "Remove debug print statements and implement proper logging",
+      "priority": "MEDIUM",
+      "estimated_hours": 4,
+      "tasks": [
+        {
+          "id": "M4T1",
+          "title": "Remove Debug Print Statements",
+          "description": "Replace print statements with proper logging framework",
+          "file_paths": ["**/*.swift"],
+          "implementation_details": {
+            "search_replace": [
+              "print( -> Logger.debug(",
+              "Remove sensitive data from logs",
+              "Add log levels (debug, info, warning, error)"
+            ]
+          }
+        },
+        {
+          "id": "M4T2",
+          "title": "Implement Logging Framework",
+          "description": "Add structured logging with os_log or similar",
+          "file_paths": ["FitDadNudge/Core/Logging/LogManager.swift"],
+          "implementation_details": {
+            "framework": "Use os_log for iOS native logging",
+            "categories": "Different log categories for different modules"
+          }
+        }
+      ]
+    },
+    {
+      "id": "M5",
+      "title": "Add Real Workout Content",
+      "description": "Replace placeholder workout content with real instructions and data",
+      "priority": "HIGH",
+      "estimated_hours": 6,
+      "tasks": [
+        {
+          "id": "M5T1",
+          "title": "Create Workout Content Database",
+          "description": "Add real workout instructions, videos, and guidance",
+          "file_paths": ["FitDadNudge/Resources/WorkoutContent.json"],
+          "implementation_details": {
+            "content_types": [
+              "Detailed exercise instructions",
+              "Video URLs or embedded videos", 
+              "Progression guidance",
+              "Safety tips",
+              "Modification options"
+            ]
+          }
+        },
+        {
+          "id": "M5T2",
+          "title": "Implement Content Delivery",
+          "description": "Add system to load and display workout content",
+          "file_paths": ["FitDadNudge/Core/Content/ContentManager.swift"],
+          "implementation_details": {
+            "features": [
+              "Dynamic content loading",
+              "Caching for offline use",
+              "Content versioning",
+              "A/B testing support"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "validation_criteria": [
+    {
+      "area": "Crash Prevention",
+      "tests": [
+        "No force unwrapping in production code",
+        "All network failures handled gracefully",
+        "App doesn't crash when CloudKit unavailable"
+      ]
+    },
+    {
+      "area": "User Experience", 
+      "tests": [
+        "Proper error messages shown to users",
+        "App works offline with cached data",
+        "Loading states for all async operations"
+      ]
+    },
+    {
+      "area": "Data Integrity",
+      "tests": [
+        "Data persists when app closes",
+        "Sync works correctly between devices",
+        "No data loss during network issues"
+      ]
+    },
+    {
+      "area": "Production Readiness",
+      "tests": [
+        "No debug code in production builds",
+        "Proper logging for troubleshooting",
+        "Performance meets standards"
+      ]
+    }
+  ],
+  "post_implementation": {
+    "testing_required": [
+      "Test all error scenarios",
+      "Test offline functionality", 
+      "Load testing with large datasets",
+      "Test on multiple iOS versions",
+      "Test CloudKit sync edge cases"
+    ],
+    "documentation_updates": [
+      "Update API documentation",
+      "Create troubleshooting guide",
+      "Document error codes and meanings"
+    ]
+  },
+  "risk_assessment": {
+    "high_risk_areas": [
+      "Core Data migration could break existing data",
+      "CloudKit sync conflicts need careful handling",
+      "Removing debug code might hide issues initially"
+    ],
+    "mitigation_strategies": [
+      "Implement gradual rollout",
+      "Add extensive logging during transition",
+      "Keep debug builds for development",
+      "Create data backup before Core Data implementation"
+    ]
+  }
+}

@@ -36,7 +36,7 @@ final class WatchConnectivityManager: NSObject, ObservableObject {
             let data = try encoder.encode(workout)
             let message = ["workout": data]
             
-            session.sendMessage(message, replyHandler: nil) { error in
+            session.sendMessage(message, replyHandler: nil) { [weak self] error in
                 print("Error sending workout: \(error)")
             }
         } catch {
@@ -253,7 +253,7 @@ extension WatchConnectivityManager: WCSessionDelegate {
             let data = try encoder.encode(workouts)
             let message = ["workouts": data]
             
-            session?.sendMessage(message, replyHandler: nil, errorHandler: { error in
+            session?.sendMessage(message, replyHandler: nil, errorHandler: { [weak self] error in
                 print("Error sending workout library: \(error)")
             })
         } catch {

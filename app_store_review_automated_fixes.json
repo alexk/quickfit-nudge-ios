@@ -1,0 +1,190 @@
+{
+  "critical_fixes": [
+    {
+      "id": "FIX001",
+      "severity": "critical",
+      "category": "force_unwrapping",
+      "file": "FitDadNudge/Core/Calendar/CalendarManager.swift",
+      "line_numbers": [232],
+      "issue": "Force unwrapping randomElement() can cause crash",
+      "fix_instructions": "Replace force unwrapping with nil coalescing operator",
+      "code_snippet": "return [.hiit, .cardio].randomElement()!",
+      "fixed_code": "return [.hiit, .cardio].randomElement() ?? .hiit",
+      "test_to_verify": "Test CalendarManager.suggestedWorkoutType with empty arrays"
+    },
+    {
+      "id": "FIX002",
+      "severity": "critical",
+      "category": "force_unwrapping",
+      "file": "FitDadNudge/Core/Calendar/CalendarManager.swift",
+      "line_numbers": [234],
+      "issue": "Force unwrapping randomElement() can cause crash",
+      "fix_instructions": "Replace force unwrapping with nil coalescing operator",
+      "code_snippet": "return [.strength, .dadKid, .stretching].randomElement()!",
+      "fixed_code": "return [.strength, .dadKid, .stretching].randomElement() ?? .strength",
+      "test_to_verify": "Test CalendarManager.suggestedWorkoutType with various minute values"
+    },
+    {
+      "id": "FIX003",
+      "severity": "critical",
+      "category": "force_unwrapping",
+      "file": "FitDadNudge/Core/Notifications/NotificationManager.swift",
+      "line_numbers": [208],
+      "issue": "Force cast to UNMutableNotificationContent can crash",
+      "fix_instructions": "Use safe casting with guard statement",
+      "code_snippet": "let content = response.notification.request.content.mutableCopy() as! UNMutableNotificationContent",
+      "fixed_code": "guard let content = response.notification.request.content.mutableCopy() as? UNMutableNotificationContent else { completionHandler(); return }",
+      "test_to_verify": "Test notification handling with various content types"
+    },
+    {
+      "id": "FIX004",
+      "severity": "critical",
+      "category": "memory_leak",
+      "file": "FitDadNudge/Models/Workout.swift",
+      "line_numbers": [264],
+      "issue": "Timer not invalidated in deinit causing memory leak",
+      "fix_instructions": "Add deinit method to WorkoutSession class after line 264",
+      "code_snippet": "// Missing deinit",
+      "fixed_code": "deinit {\n        timer?.invalidate()\n        timer = nil\n    }",
+      "test_to_verify": "Run Instruments Leaks tool on WorkoutSession lifecycle"
+    },
+    {
+      "id": "FIX005",
+      "severity": "critical",
+      "category": "force_unwrapping",
+      "file": "FitDadNudge/Core/Calendar/CalendarManager.swift",
+      "line_numbers": [164],
+      "issue": "Force unwrapping lastEvent.endDate can crash if nil",
+      "fix_instructions": "Add guard statement to safely unwrap",
+      "code_snippet": "let gapStart = lastEvent.endDate!",
+      "fixed_code": "guard let gapStart = lastEvent.endDate else { continue }",
+      "test_to_verify": "Test with calendar events that have no end date"
+    },
+    {
+      "id": "FIX006",
+      "severity": "critical",
+      "category": "info_plist",
+      "file": "Info.plist",
+      "line_numbers": [0],
+      "issue": "Missing required Info.plist keys for App Store",
+      "fix_instructions": "Add required keys to Info.plist file",
+      "code_snippet": "<!-- Missing keys -->",
+      "fixed_code": "<key>CFBundleDisplayName</key>\n<string>FitDad Nudge</string>\n<key>CFBundleVersion</key>\n<string>1</string>\n<key>CFBundleShortVersionString</key>\n<string>1.0</string>\n<key>LSRequiresIPhoneOS</key>\n<true/>\n<key>UIRequiredDeviceCapabilities</key>\n<array>\n    <string>armv7</string>\n</array>\n<key>ITSAppUsesNonExemptEncryption</key>\n<false/>",
+      "test_to_verify": "Build and verify all keys are present"
+    }
+  ],
+  "warning_fixes": [
+    {
+      "id": "FIX007",
+      "severity": "high",
+      "category": "memory_management",
+      "file": "FitDadNudge/Core/Watch/WatchConnectivityManager.swift",
+      "line_numbers": [39, 256],
+      "issue": "Potential retain cycle in error handler closures",
+      "fix_instructions": "Add [weak self] to closure parameters",
+      "code_snippet": "session.sendMessage(message, replyHandler: nil) { error in",
+      "fixed_code": "session.sendMessage(message, replyHandler: nil) { [weak self] error in",
+      "test_to_verify": "Monitor memory graph for retain cycles"
+    },
+    {
+      "id": "FIX008",
+      "severity": "high",
+      "category": "thread_safety",
+      "file": "FitDadNudge/Core/Watch/WatchConnectivityManager.swift",
+      "line_numbers": [142, 153, 157, 163, 169, 174, 181, 187],
+      "issue": "WCSessionDelegate methods updating UI properties off main thread",
+      "fix_instructions": "Ensure all property updates happen on main thread",
+      "code_snippet": "Task { @MainActor in",
+      "fixed_code": "// Already wrapped in Task { @MainActor in",
+      "test_to_verify": "Enable Main Thread Checker and test Watch connectivity"
+    },
+    {
+      "id": "FIX009",
+      "severity": "medium",
+      "category": "error_handling",
+      "file": "FitDadNudge/Core/AppState.swift",
+      "line_numbers": [52],
+      "issue": "UserDefaults access without error handling",
+      "fix_instructions": "Add defensive checks for UserDefaults operations",
+      "code_snippet": "UserDefaults.standard.hasCompletedOnboarding",
+      "fixed_code": "UserDefaults.standard.object(forKey: \"hasCompletedOnboarding\") as? Bool ?? false",
+      "test_to_verify": "Test with corrupted UserDefaults"
+    },
+    {
+      "id": "FIX010",
+      "severity": "medium",
+      "category": "notification_delegate",
+      "file": "FitDadNudgeApp.swift",
+      "line_numbers": [17],
+      "issue": "NotificationDelegate may be deallocated",
+      "fix_instructions": "Store delegate as property to retain it",
+      "code_snippet": "let notificationDelegate = NotificationDelegate()",
+      "fixed_code": "@StateObject private var notificationDelegate = NotificationDelegate()",
+      "test_to_verify": "Test notification handling after app backgrounding"
+    }
+  ],
+  "optimization_fixes": [
+    {
+      "id": "FIX011",
+      "severity": "low",
+      "category": "performance",
+      "file": "FitDadNudge/Core/Calendar/CalendarManager.swift",
+      "line_numbers": [126],
+      "issue": "Inefficient calendar scanning on every call",
+      "fix_instructions": "Add caching for calendar events",
+      "code_snippet": "// Scans all events every time",
+      "fixed_code": "// Add: @Published private var cachedGaps: [CalendarGap] = []",
+      "test_to_verify": "Profile calendar operations with Instruments"
+    },
+    {
+      "id": "FIX012",
+      "severity": "low",
+      "category": "debug_code",
+      "file": "Multiple files",
+      "line_numbers": [0],
+      "issue": "Print statements throughout codebase",
+      "fix_instructions": "Replace print with os_log or remove",
+      "code_snippet": "print(\"...",
+      "fixed_code": "// Remove or use: os_log(\"...\", log: .default, type: .debug)",
+      "test_to_verify": "Search for print statements in release build"
+    }
+  ],
+  "compliance_fixes": [
+    {
+      "id": "FIX013",
+      "severity": "high",
+      "category": "accessibility",
+      "file": "Multiple View files",
+      "line_numbers": [0],
+      "issue": "Missing accessibility labels on interactive elements",
+      "fix_instructions": "Add .accessibilityLabel() to all buttons and interactive views",
+      "code_snippet": "Button(\"Start Workout\")",
+      "fixed_code": "Button(\"Start Workout\")\n    .accessibilityLabel(\"Start workout button\")\n    .accessibilityHint(\"Double tap to begin your workout\")",
+      "test_to_verify": "Test with VoiceOver enabled"
+    },
+    {
+      "id": "FIX014",
+      "severity": "medium",
+      "category": "ui_compliance",
+      "file": "FitDadNudge/Views/RootView.swift",
+      "line_numbers": [38],
+      "issue": "Generic gray loading screen looks unfinished",
+      "fix_instructions": "Add app branding to loading view",
+      "code_snippet": "Color(.systemGray6)",
+      "fixed_code": "ZStack {\n    Color(.systemGray6)\n    VStack {\n        Image(\"AppLogo\")\n            .resizable()\n            .frame(width: 100, height: 100)\n        ProgressView()\n            .padding(.top)\n    }\n}",
+      "test_to_verify": "Visual inspection of loading screen"
+    },
+    {
+      "id": "FIX015",
+      "severity": "high",
+      "category": "mock_data",
+      "file": "FitDadNudge/Core/Gamification/StreakManager.swift",
+      "line_numbers": [188, 196],
+      "issue": "Mock data returned instead of real implementation",
+      "fix_instructions": "Implement actual data fetching from CloudKit",
+      "code_snippet": "// For now, return a mock value\nreturn 3",
+      "fixed_code": "// Query actual workout completions from CloudKit\nlet completions = await cloudKitManager.fetchWorkoutCompletions(for: currentWeek)\nreturn completions.count",
+      "test_to_verify": "Verify streak calculations with real data"
+    }
+  ]
+}

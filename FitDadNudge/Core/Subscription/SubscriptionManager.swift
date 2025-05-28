@@ -177,11 +177,11 @@ enum SubscriptionError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .verificationFailed:
-            return "Purchase verification failed"
+            return "We couldn't verify your purchase - let's try that again"
         case .purchaseFailed:
-            return "Purchase could not be completed"
+            return "Something went wrong with your purchase - your card wasn't charged"
         case .productNotFound:
-            return "Product not found"
+            return "We're having trouble loading subscription options right now"
         }
     }
 }

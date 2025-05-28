@@ -1,0 +1,118 @@
+{
+  "app_size": {
+    "estimated_download_size_mb": 12.5,
+    "estimated_install_size_mb": 38.2,
+    "size_limit_warnings": false,
+    "size_optimization_opportunities": [
+      "Remove unused assets",
+      "Optimize image compression",
+      "Enable app thinning",
+      "Remove debug symbols in release"
+    ]
+  },
+  "launch_time": {
+    "cold_start_ms": "unknown",
+    "warm_start_ms": "unknown",
+    "acceptable": "needs_testing",
+    "recommendations": [
+      "Profile with Instruments Time Profiler",
+      "Defer non-critical initialization",
+      "Optimize asset loading",
+      "Implement proper launch screen"
+    ]
+  },
+  "memory_usage": {
+    "estimated_peak_mb": 150,
+    "estimated_average_mb": 80,
+    "memory_warnings_observed": false,
+    "memory_leaks_found": [
+      {
+        "location": "WorkoutSession timer",
+        "impact": "Continuous memory growth during workouts",
+        "fix": "Add timer cleanup in deinit"
+      },
+      {
+        "location": "WatchConnectivityManager closures",
+        "impact": "Potential retain cycles",
+        "fix": "Add [weak self] to closures"
+      }
+    ]
+  },
+  "performance_bottlenecks": [
+    {
+      "area": "Calendar scanning",
+      "issue": "Scans all events on every gap detection call",
+      "impact": "Slow performance with large calendars",
+      "recommendation": "Implement caching and incremental updates"
+    },
+    {
+      "area": "CloudKit queries",
+      "issue": "No pagination implemented",
+      "impact": "Memory spike with large datasets",
+      "recommendation": "Implement query cursors and pagination"
+    },
+    {
+      "area": "Workout library loading",
+      "issue": "Loads all workouts at once",
+      "impact": "Slow initial load",
+      "recommendation": "Implement lazy loading"
+    }
+  ],
+  "optimization_recommendations": [
+    {
+      "priority": "HIGH",
+      "area": "Image assets",
+      "action": "Implement on-demand resource loading for workout images/videos"
+    },
+    {
+      "priority": "MEDIUM",
+      "area": "Data persistence",
+      "action": "Add Core Data for offline caching to reduce network calls"
+    },
+    {
+      "priority": "MEDIUM",
+      "area": "Background tasks",
+      "action": "Move heavy operations off main thread"
+    },
+    {
+      "priority": "LOW",
+      "area": "Animations",
+      "action": "Profile and optimize any complex animations"
+    }
+  ],
+  "battery_impact": {
+    "estimated_rating": "moderate",
+    "battery_drain_sources": [
+      "Continuous timer during workouts",
+      "Calendar event monitoring",
+      "CloudKit sync operations"
+    ],
+    "optimization_suggestions": [
+      "Use more efficient timer for workout tracking",
+      "Batch CloudKit operations",
+      "Implement smart sync scheduling"
+    ]
+  },
+  "network_performance": {
+    "api_calls_optimized": false,
+    "caching_implemented": false,
+    "offline_support": false,
+    "recommendations": [
+      "Implement request caching",
+      "Add offline queue for CloudKit operations",
+      "Compress data transfers",
+      "Implement proper retry logic"
+    ]
+  },
+  "build_settings_optimization": {
+    "swift_optimization_level": "not_checked",
+    "dead_code_stripping": "not_checked",
+    "bitcode_enabled": "not_checked",
+    "recommendations": [
+      "Set SWIFT_OPTIMIZATION_LEVEL to -O for release",
+      "Enable DEAD_CODE_STRIPPING",
+      "Enable ENABLE_BITCODE for app thinning",
+      "Set VALIDATE_PRODUCT to YES for release"
+    ]
+  }
+}

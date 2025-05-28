@@ -14,11 +14,12 @@ struct FitDadNudgeApp: App {
     @StateObject private var appState = AppState()
     @StateObject private var notificationManager = NotificationManager.shared
     
-    private let notificationDelegate = NotificationDelegate()
+    // Store as static to ensure it's not deallocated
+    private static let notificationDelegate = NotificationDelegate()
     
     init() {
         // Set up notification delegate
-        UNUserNotificationCenter.current().delegate = notificationDelegate
+        UNUserNotificationCenter.current().delegate = Self.notificationDelegate
         
         // Register notification categories
         NotificationManager.shared.registerNotificationCategories()
@@ -71,17 +72,17 @@ struct FitDadNudgeApp: App {
     private func getDefaultInstructions(for type: WorkoutType) -> [String] {
         switch type {
         case .breathing:
-            return ["Take a deep breath in", "Hold", "Exhale slowly", "Repeat"]
+            return ["Take a slow, deep breath in", "Hold it for a moment", "Let it all out slowly", "Feel that calm? Do it again"]
         case .stretching:
-            return ["Neck rolls", "Shoulder shrugs", "Arm circles", "Torso twists"]
+            return ["Gentle neck rolls to release tension", "Shoulder shrugs to drop the stress", "Arm circles to wake everything up", "Twist that torso and feel the stretch"]
         case .hiit:
-            return ["Jumping jacks", "High knees", "Burpees", "Mountain climbers"]
+            return ["Power through jumping jacks", "Get those knees up high", "Burpees - you've got this", "Mountain climbers to finish strong"]
         case .strength:
-            return ["Push-ups", "Squats", "Plank", "Lunges"]
+            return ["Push-ups at your own pace", "Squats like you mean it", "Hold that plank with pride", "Lunges to round it out"]
         case .cardio:
-            return ["March in place", "Butt kicks", "Jump rope", "Shadow boxing"]
+            return ["March it out, stay moving", "Butt kicks for that energy boost", "Pretend jump rope if you need to", "Shadow box away the stress"]
         case .dadKid:
-            return ["Animal walks", "Dance party", "Simon says", "High fives"]
+            return ["Animal walks around the space", "Dance party - let them pick the song", "Simon says (you be Simon)", "Victory high fives all around"]
         }
     }
 }
