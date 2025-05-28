@@ -18,7 +18,7 @@ final class CloudKitManager: ObservableObject {
     }
     
     private init() {
-        container = CKContainer(identifier: "iCloud.com.fitdad.nudge")
+        container = CKContainer(identifier: "iCloud.com.quickfit.nudge")
         privateDatabase = container.privateCloudDatabase
         sharedDatabase = container.sharedCloudDatabase
     }
@@ -58,6 +58,8 @@ final class CloudKitManager: ObservableObject {
         do {
             let (matchResults, _) = try await privateDatabase.records(matching: query, resultsLimit: limit)
             
+            var fetchErrors: [Error] = []
+            
             for (_, result) in matchResults {
                 switch result {
                 case .success(let record):
@@ -66,7 +68,13 @@ final class CloudKitManager: ObservableObject {
                     }
                 case .failure(let error):
                     logError("Failed to fetch record: \(error)", category: .cloudKit)
+                    fetchErrors.append(error)
                 }
+            }
+            
+            // If all fetches failed, throw an error
+            if !fetchErrors.isEmpty && results.isEmpty {
+                throw CloudKitError.partialFailure(errors: fetchErrors)
             }
         } catch {
             throw CloudKitError.fetchFailed(underlying: error)
@@ -103,6 +111,7 @@ enum CloudKitError: LocalizedError {
     case missingRequiredFields
     case saveFailed(underlying: Error)
     case fetchFailed(underlying: Error)
+    case partialFailure(errors: [Error])
     
     var errorDescription: String? {
         switch self {
@@ -114,6 +123,8 @@ enum CloudKitError: LocalizedError {
             return "Failed to save: \(error.localizedDescription)"
         case .fetchFailed(let error):
             return "Failed to fetch: \(error.localizedDescription)"
+        case .partialFailure(let errors):
+            return "Partial failure: \(errors.count) records failed to fetch"
         }
     }
 } 
