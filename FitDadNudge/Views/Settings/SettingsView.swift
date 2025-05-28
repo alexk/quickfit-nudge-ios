@@ -36,6 +36,9 @@ struct SettingsView: View {
                 // Workout Preferences Section
                 workoutPreferencesSection
                 
+                // Calendar Integration Section
+                calendarIntegrationSection
+                
                 // Display Section
                 displaySection
                 
@@ -178,6 +181,29 @@ struct SettingsView: View {
                 Label("Auto-Start Workouts", systemImage: "play.circle")
             }
         }
+    }
+    
+    // MARK: - Calendar Integration Section
+    
+    private var calendarIntegrationSection: some View {
+        Section("Calendar Integration") {
+            NavigationLink(destination: CalendarSettingsView()) {
+                Label("Calendar Settings", systemImage: "calendar.badge.gearshape")
+            }
+            
+            HStack {
+                Label("Connected Calendars", systemImage: "link")
+                Spacer()
+                Text(connectedCalendarsText)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
+    
+    private var connectedCalendarsText: String {
+        // This would be dynamically determined by CalendarIntegrationManager
+        return "iOS Calendar" // Placeholder
     }
     
     // MARK: - Display Section
