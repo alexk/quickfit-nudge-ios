@@ -40,12 +40,15 @@ final class CalendarManager: ObservableObject {
                     if let error = error {
                         logError("Error requesting calendar access: \(error)", category: .calendar)
                     }
+                    
+                    // Always resume continuation, even if Task creation fails
+                    continuation.resume(returning: granted)
+                    
                     Task { @MainActor in
                         self.hasCalendarAccess = granted
                         if granted {
                             await self.scanForGaps()
                         }
-                        continuation.resume(returning: granted)
                     }
                 }
             }
@@ -147,7 +150,10 @@ final class GapDetectionEngine {
             let nextEvent = sortedEvents[i + 1]
             
             guard let gapStart = currentEvent.endDate,
-                  let gapEnd = nextEvent.startDate else { continue }
+                  let gapEnd = nextEvent.startDate else { 
+                logDebug("Skipping event without proper dates - current: \(currentEvent.title ?? "No title"), next: \(nextEvent.title ?? "No title")", category: .calendar)
+                continue 
+            }
             let gapDuration = gapEnd.timeIntervalSince(gapStart)
             
             if gapDuration >= 60 && gapDuration <= 300 { // 1-5 minutes
