@@ -89,17 +89,21 @@ extension View {
     
     func announceChange(_ announcement: String) -> some View {
         self.onAppear {
+            #if canImport(UIKit)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 UIAccessibility.post(notification: .announcement, argument: announcement)
             }
+            #endif
         }
     }
     
     func announceScreenChange(_ screenName: String) -> some View {
         self.onAppear {
+            #if canImport(UIKit)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 UIAccessibility.post(notification: .screenChanged, argument: "\(screenName) screen")
             }
+            #endif
         }
     }
 }
@@ -146,6 +150,7 @@ extension View {
     }
     
     func scaledFont(_ style: Font.TextStyle, size: CGFloat) -> Font {
+        #if canImport(UIKit)
         let uiStyle: UIFont.TextStyle
         switch style {
         case .largeTitle: uiStyle = .largeTitle
@@ -162,6 +167,10 @@ extension View {
         default: uiStyle = .body
         }
         return Font.system(size: UIFontMetrics(forTextStyle: uiStyle).scaledValue(for: size))
+        #else
+        // For macOS, use a simpler scaling approach
+        return Font.system(size: size)
+        #endif
     }
 }
 
@@ -181,7 +190,7 @@ struct AdaptiveBackgroundModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .background(contrast == .increased ? Color.black : Color(.systemGray6))
+            .background(contrast == .increased ? Color.black : Color.gray.opacity(0.1))
     }
 }
 
@@ -214,7 +223,12 @@ struct ReducedMotionModifier<V>: ViewModifier where V: Equatable {
 // MARK: - VoiceOver Helpers
 extension View {
     var isVoiceOverRunning: Bool {
-        UIAccessibility.isVoiceOverRunning
+        #if canImport(UIKit)
+        return UIAccessibility.isVoiceOverRunning
+        #else
+        // On macOS, check for VoiceOver differently
+        return false // macOS doesn't have a direct API equivalent
+        #endif
     }
     
     func voiceOverOnly() -> some View {

@@ -1,0 +1,866 @@
+{
+  "projectOverview": {
+    "problemStatement": "Busy dads struggle to maintain fitness due to time constraints. FitDadNudge detects 1-5 minute calendar gaps and surfaces AI-curated micro-workouts via widgets, haptics, and notifications, making fitness accessible within their existing schedule.",
+    "successCriteria": {
+      "technical": [
+        "App builds successfully for iOS 16.0+ and macOS 13.0+",
+        "Widget renders in < 150ms p95",
+        "Crash-free sessions ≥ 99.3%",
+        "Memory usage < 150MB",
+        "Calendar gap detection accuracy ≥ 85%",
+        "Watch sync latency < 1s"
+      ],
+      "business": [
+        "D1 retention ≥ 65%",
+        "Average workouts per day ≥ 2",
+        "Subscription conversion ≥ 5%",
+        "App Store rating ≥ 4.5"
+      ]
+    },
+    "assumptions": [
+      "Users have Apple devices (iPhone, optionally Apple Watch)",
+      "Users grant calendar access permissions",
+      "CloudKit is sufficient for backend needs",
+      "Micro-workouts (1-5 min) provide meaningful health benefits"
+    ],
+    "constraints": [
+      "12-week development timeline",
+      "iOS 16.0 minimum deployment target",
+      "Must use native Apple frameworks where possible",
+      "No external backend infrastructure (CloudKit only)"
+    ]
+  },
+  "technicalArchitecture": {
+    "systemDesign": {
+      "layers": {
+        "presentation": {
+          "framework": "SwiftUI",
+          "pattern": "MVVM",
+          "components": ["Views", "ViewModels", "ViewModifiers"]
+        },
+        "domain": {
+          "pattern": "Clean Architecture",
+          "components": ["Use Cases", "Entities", "Repository Protocols"]
+        },
+        "data": {
+          "pattern": "Repository",
+          "components": ["CloudKit Manager", "Core Data", "Keychain", "UserDefaults"]
+        },
+        "infrastructure": {
+          "components": ["Analytics", "Crash Reporting", "Performance Monitoring"]
+        }
+      }
+    },
+    "technologyStack": {
+      "core": {
+        "language": "Swift 5.9+",
+        "ui": "SwiftUI 5.0+",
+        "minDeployment": "iOS 16.0, macOS 13.0, watchOS 9.0"
+      },
+      "frameworks": {
+        "apple": {
+          "EventKit": "Calendar integration",
+          "HealthKit": "Fitness tracking",
+          "CloudKit": "Backend sync",
+          "CoreML": "Gap quality prediction",
+          "StoreKit2": "Subscriptions",
+          "WidgetKit": "Home screen widget",
+          "WatchConnectivity": "iPhone-Watch sync"
+        },
+        "thirdParty": {
+          "Amplitude": "8.15.0 - Analytics",
+          "Firebase": "10.18.0 - Crashlytics only"
+        }
+      }
+    },
+    "dataFlow": {
+      "userAuthentication": {
+        "flow": "User -> AuthenticationView -> AuthenticationManager -> Sign in with Apple -> CloudKit -> User Model",
+        "storage": "Keychain for tokens, CloudKit for user data"
+      },
+      "calendarGapDetection": {
+        "flow": "CalendarManager -> EventKit -> GapDetectionEngine -> CoreML Model -> CalendarGap Model -> UI",
+        "refresh": "Background refresh every 30 minutes, manual refresh on app launch"
+      },
+      "workoutExecution": {
+        "flow": "User selects workout -> WorkoutPlayerView -> WorkoutSession -> Timer/Instructions -> Completion -> CloudKit sync",
+        "watchSync": "WatchConnectivity for real-time sync during workouts"
+      }
+    },
+    "apiContracts": {
+      "cloudKitSchema": {
+        "users": {
+          "recordType": "Users",
+          "fields": {
+            "recordName": "String (unique)",
+            "email": "String",
+            "displayName": "String",
+            "createdAt": "Date",
+            "subscriptionStatus": "String",
+            "preferences": "JSON"
+          }
+        },
+        "workouts": {
+          "recordType": "Workouts",
+          "fields": {
+            "recordName": "String (unique)",
+            "name": "String",
+            "duration": "Double",
+            "type": "String",
+            "difficulty": "String",
+            "instructions": "String[]",
+            "gifURL": "String",
+            "equipment": "String[]"
+          }
+        },
+        "completions": {
+          "recordType": "Completions",
+          "fields": {
+            "recordName": "String (unique)",
+            "userReference": "Reference(Users)",
+            "workoutReference": "Reference(Workouts)",
+            "completedAt": "Date",
+            "duration": "Double",
+            "withKid": "Boolean"
+          }
+        }
+      }
+    }
+  },
+  "milestones": [
+    {
+      "id": "M1",
+      "title": "Fix Critical Build Issues",
+      "description": "Resolve all compilation errors and platform compatibility issues to achieve a clean build",
+      "complexity": 2,
+      "dependencies": [],
+      "estimatedHours": 8,
+      "outputs": [
+        "Clean build for iOS, macOS, watchOS targets",
+        "All type errors resolved",
+        "Platform conditionals properly implemented"
+      ],
+      "acceptanceCriteria": [
+        "Project builds without errors for all targets",
+        "All Swift files compile successfully",
+        "Unit tests pass",
+        "No SwiftLint errors"
+      ]
+    },
+    {
+      "id": "M2",
+      "title": "Complete Core Infrastructure",
+      "description": "Implement remaining core managers and fix authentication flow",
+      "complexity": 3,
+      "dependencies": ["M1"],
+      "estimatedHours": 16,
+      "outputs": [
+        "Working authentication flow",
+        "CloudKit sync operational",
+        "Calendar integration complete",
+        "Basic navigation working"
+      ],
+      "acceptanceCriteria": [
+        "Sign in with Apple works end-to-end",
+        "Calendar permissions properly requested",
+        "CloudKit container connected",
+        "User can navigate between main tabs"
+      ]
+    },
+    {
+      "id": "M3",
+      "title": "Implement Workout System",
+      "description": "Build workout player, library, and session management",
+      "complexity": 4,
+      "dependencies": ["M2"],
+      "estimatedHours": 24,
+      "outputs": [
+        "Workout player UI complete",
+        "Timer and instruction system",
+        "Workout library with filters",
+        "Session tracking"
+      ],
+      "acceptanceCriteria": [
+        "User can browse workout library",
+        "Workout player shows GIF/instructions",
+        "Timer counts down correctly",
+        "Completions are tracked"
+      ]
+    },
+    {
+      "id": "M4",
+      "title": "Widget & Notifications",
+      "description": "Implement home screen widget and push notifications",
+      "complexity": 3,
+      "dependencies": ["M3"],
+      "estimatedHours": 16,
+      "outputs": [
+        "Home screen widget showing next gap",
+        "Widget timeline provider",
+        "Push notification system",
+        "Rich notifications with actions"
+      ],
+      "acceptanceCriteria": [
+        "Widget displays on home screen",
+        "Widget updates with calendar changes",
+        "Notifications fire at gap times",
+        "Widget renders < 150ms"
+      ]
+    },
+    {
+      "id": "M5",
+      "title": "Watch App Integration",
+      "description": "Complete Apple Watch companion app with sync",
+      "complexity": 4,
+      "dependencies": ["M3"],
+      "estimatedHours": 20,
+      "outputs": [
+        "watchOS UI implementation",
+        "WatchConnectivity sync",
+        "Haptic feedback patterns",
+        "Background session handling"
+      ],
+      "acceptanceCriteria": [
+        "Watch app launches and displays workouts",
+        "Sync with iPhone < 1s",
+        "Haptics work during workouts",
+        "Can complete workout on watch alone"
+      ]
+    },
+    {
+      "id": "M6",
+      "title": "Gamification System",
+      "description": "Implement streaks, badges, and achievements",
+      "complexity": 3,
+      "dependencies": ["M3"],
+      "estimatedHours": 16,
+      "outputs": [
+        "Streak tracking system",
+        "Badge awarding engine",
+        "Achievement UI",
+        "CloudKit sync for gamification"
+      ],
+      "acceptanceCriteria": [
+        "Streaks calculate correctly",
+        "Badges award on criteria met",
+        "UI shows progress clearly",
+        "Data persists across devices"
+      ]
+    },
+    {
+      "id": "M7",
+      "title": "Subscription & Monetization",
+      "description": "Implement StoreKit 2 subscriptions and paywall",
+      "complexity": 4,
+      "dependencies": ["M2"],
+      "estimatedHours": 20,
+      "outputs": [
+        "StoreKit 2 integration",
+        "Paywall UI",
+        "Subscription management",
+        "Receipt validation"
+      ],
+      "acceptanceCriteria": [
+        "Paywall displays correctly",
+        "Sandbox purchases work",
+        "Subscription status syncs",
+        "Restore purchases functions"
+      ]
+    },
+    {
+      "id": "M8",
+      "title": "Analytics & Performance",
+      "description": "Integrate analytics and optimize performance",
+      "complexity": 3,
+      "dependencies": ["M2"],
+      "estimatedHours": 12,
+      "outputs": [
+        "Amplitude integration",
+        "Event tracking implemented",
+        "Performance optimizations",
+        "Crash reporting setup"
+      ],
+      "acceptanceCriteria": [
+        "All key events tracked",
+        "Memory usage < 150MB",
+        "No memory leaks",
+        "Crashlytics reporting errors"
+      ]
+    },
+    {
+      "id": "M9",
+      "title": "Polish & Beta Preparation",
+      "description": "UI polish, bug fixes, and TestFlight preparation",
+      "complexity": 3,
+      "dependencies": ["M1-M8"],
+      "estimatedHours": 16,
+      "outputs": [
+        "Polished UI/UX",
+        "All known bugs fixed",
+        "TestFlight build",
+        "Beta testing documentation"
+      ],
+      "acceptanceCriteria": [
+        "No P0/P1 bugs",
+        "UI animations smooth",
+        "TestFlight build approved",
+        "Beta testers onboarded"
+      ]
+    }
+  ],
+  "implementationSteps": {
+    "M1": {
+      "steps": [
+        {
+          "id": "M1.1",
+          "description": "Fix platform compatibility in View+Accessibility.swift",
+          "files": ["FitDadNudge/Extensions/View+Accessibility.swift"],
+          "implementation": "Add #if canImport(UIKit) conditionals around UIKit-specific code. For macOS, use AppKit equivalents or skip functionality.",
+          "codePattern": "#if canImport(UIKit)\nimport UIKit\n// UIKit specific code\n#elseif canImport(AppKit)\nimport AppKit\n// AppKit specific code\n#endif",
+          "edgeCases": ["Ensure all accessibility features work on both platforms", "Test with VoiceOver"],
+          "pitfalls": ["Don't assume UIKit availability", "Remember macOS uses AppKit"]
+        },
+        {
+          "id": "M1.2",
+          "description": "Update bundle identifiers in Xcode project",
+          "files": ["FitDadNudge.xcodeproj/project.pbxproj"],
+          "implementation": "Change bundle ID from 'abk.FitDadNudge' to 'com.fitdad.nudge' for all targets",
+          "codePattern": "PRODUCT_BUNDLE_IDENTIFIER = com.fitdad.nudge",
+          "edgeCases": ["Update all targets: iOS, watchOS, widget", "Update entitlements files"],
+          "pitfalls": ["Ensure app groups use consistent prefix", "Update CloudKit container ID"]
+        },
+        {
+          "id": "M1.3",
+          "description": "Configure build settings for multi-platform",
+          "files": ["FitDadNudge.xcodeproj/project.pbxproj"],
+          "implementation": "Set SUPPORTS_MACCATALYST = NO, ensure proper platform versions",
+          "codePattern": "IPHONEOS_DEPLOYMENT_TARGET = 16.0;\nMACOSX_DEPLOYMENT_TARGET = 13.0;",
+          "edgeCases": ["Different capabilities per platform", "Platform-specific resources"],
+          "pitfalls": ["Don't mix Catalyst with native macOS", "Check framework availability"]
+        }
+      ]
+    },
+    "M2": {
+      "steps": [
+        {
+          "id": "M2.1",
+          "description": "Complete AuthenticationManager implementation",
+          "files": ["FitDadNudge/Core/Authentication/AuthenticationManager.swift"],
+          "implementation": "Implement Sign in with Apple flow with proper error handling and state management",
+          "codePattern": "class AuthenticationManager: ObservableObject {\n    @Published var currentUser: User?\n    @Published var isAuthenticated = false\n    \n    func signInWithApple() async throws {\n        // Implementation\n    }\n}",
+          "edgeCases": ["User cancels sign in", "Network errors", "Invalid credentials"],
+          "pitfalls": ["Handle reauthentication", "Store user ID securely in Keychain"]
+        },
+        {
+          "id": "M2.2",
+          "description": "Implement CloudKitManager",
+          "files": ["FitDadNudge/Core/CloudKit/CloudKitManager.swift"],
+          "implementation": "Create generic CloudKit wrapper for CRUD operations with proper error handling",
+          "codePattern": "protocol CloudKitRecordable {\n    var recordType: String { get }\n    func toRecord() -> CKRecord\n    init(from record: CKRecord) throws\n}",
+          "edgeCases": ["Rate limiting", "Network offline", "Quota exceeded"],
+          "pitfalls": ["Handle record conflicts", "Implement exponential backoff"]
+        },
+        {
+          "id": "M2.3",
+          "description": "Complete navigation flow",
+          "files": ["FitDadNudge/Views/RootView.swift", "FitDadNudge/Views/MainTabView.swift"],
+          "implementation": "Implement proper navigation based on authentication state",
+          "codePattern": "if authManager.isAuthenticated {\n    MainTabView()\n} else {\n    AuthenticationView()\n}",
+          "edgeCases": ["Deep linking", "State restoration", "Background launch"],
+          "pitfalls": ["Avoid navigation loops", "Handle state changes properly"]
+        }
+      ]
+    },
+    "M3": {
+      "steps": [
+        {
+          "id": "M3.1",
+          "description": "Implement WorkoutPlayerView",
+          "files": ["FitDadNudge/Views/Workout/WorkoutPlayerView.swift"],
+          "implementation": "Create full workout player UI with timer, instructions, and progress",
+          "codePattern": "struct WorkoutPlayerView: View {\n    @StateObject private var session: WorkoutSession\n    \n    var body: some View {\n        // Timer, GIF player, instructions\n    }\n}",
+          "edgeCases": ["App backgrounding", "Interruptions", "Low memory"],
+          "pitfalls": ["Handle timer in background", "Optimize GIF memory usage"]
+        },
+        {
+          "id": "M3.2",
+          "description": "Create GIF player component",
+          "files": ["FitDadNudge/Views/Components/GIFPlayer.swift"],
+          "implementation": "Build efficient GIF player using ImageIO framework",
+          "codePattern": "class GIFPlayer: ObservableObject {\n    @Published var currentFrame: UIImage?\n    private var displayLink: CADisplayLink?\n}",
+          "edgeCases": ["Large GIFs", "Network loading", "Memory pressure"],
+          "pitfalls": ["Don't load all frames at once", "Cancel loading on view disappear"]
+        },
+        {
+          "id": "M3.3",
+          "description": "Implement workout library",
+          "files": ["FitDadNudge/Views/Library/LibraryView.swift"],
+          "implementation": "Create searchable, filterable workout library",
+          "codePattern": "struct LibraryView: View {\n    @State private var searchText = \"\"\n    @State private var selectedType: WorkoutType?\n}",
+          "edgeCases": ["Empty states", "Loading states", "Error states"],
+          "pitfalls": ["Lazy load images", "Implement proper pagination"]
+        }
+      ]
+    },
+    "M4": {
+      "steps": [
+        {
+          "id": "M4.1",
+          "description": "Create widget extension",
+          "files": ["FitDadNudgeWidget/FitDadNudgeWidget.swift"],
+          "implementation": "Implement timeline provider for next gap widget",
+          "codePattern": "struct Provider: TimelineProvider {\n    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {\n        // Generate timeline entries\n    }\n}",
+          "edgeCases": ["No calendar access", "No upcoming gaps", "Widget gallery"],
+          "pitfalls": ["Keep memory low", "Handle shared container access"]
+        },
+        {
+          "id": "M4.2",
+          "description": "Implement push notifications",
+          "files": ["FitDadNudge/Core/Notifications/NotificationManager.swift"],
+          "implementation": "Create notification manager with rich notifications",
+          "codePattern": "class NotificationManager {\n    func scheduleGapNotification(for gap: CalendarGap) {\n        // Create UNNotificationRequest\n    }\n}",
+          "edgeCases": ["Permission denied", "Do not disturb", "Notification limits"],
+          "pitfalls": ["Request permission appropriately", "Handle notification actions"]
+        }
+      ]
+    },
+    "M5": {
+      "steps": [
+        {
+          "id": "M5.1",
+          "description": "Create watchOS UI",
+          "files": ["FitDadNudgeWatch/WorkoutWatchView.swift"],
+          "implementation": "Build watch-optimized workout interface",
+          "codePattern": "struct WorkoutWatchView: View {\n    @StateObject private var workoutManager: WatchWorkoutManager\n}",
+          "edgeCases": ["Small screen", "Digital crown input", "Force touch deprecated"],
+          "pitfalls": ["Keep UI simple", "Use appropriate fonts"]
+        },
+        {
+          "id": "M5.2",
+          "description": "Implement WatchConnectivity",
+          "files": ["FitDadNudge/Core/Watch/WatchConnectivityManager.swift"],
+          "implementation": "Create bidirectional communication between iPhone and Watch",
+          "codePattern": "class WatchConnectivityManager: NSObject, WCSessionDelegate {\n    func sendWorkout(_ workout: Workout) {\n        // Send via transferUserInfo or sendMessage\n    }\n}",
+          "edgeCases": ["Watch not paired", "Bluetooth off", "Background transfers"],
+          "pitfalls": ["Check session.isReachable", "Handle queued messages"]
+        }
+      ]
+    },
+    "M6": {
+      "steps": [
+        {
+          "id": "M6.1",
+          "description": "Implement streak calculation",
+          "files": ["FitDadNudge/Core/Gamification/StreakManager.swift"],
+          "implementation": "Create streak tracking with timezone handling",
+          "codePattern": "class StreakManager {\n    func calculateStreak(from completions: [WorkoutCompletion]) -> Int {\n        // Daily streak logic\n    }\n}",
+          "edgeCases": ["Timezone changes", "Daylight saving", "Multiple workouts per day"],
+          "pitfalls": ["Use user's calendar for date calculations", "Handle gaps properly"]
+        },
+        {
+          "id": "M6.2",
+          "description": "Build badge system",
+          "files": ["FitDadNudge/Core/Gamification/BadgeEngine.swift"],
+          "implementation": "Create flexible badge awarding system",
+          "codePattern": "protocol BadgeCriteria {\n    func evaluate(user: User, completions: [WorkoutCompletion]) -> Bool\n}",
+          "edgeCases": ["Retroactive badges", "Badge revocation", "Multiple criteria"],
+          "pitfalls": ["Make it extensible", "Persist awarded badges"]
+        }
+      ]
+    },
+    "M7": {
+      "steps": [
+        {
+          "id": "M7.1",
+          "description": "Implement StoreKit 2",
+          "files": ["FitDadNudge/Core/Subscription/SubscriptionManager.swift"],
+          "implementation": "Create modern StoreKit 2 subscription handling",
+          "codePattern": "class SubscriptionManager: ObservableObject {\n    @Published var subscriptionStatus: Product.SubscriptionInfo.Status?\n    \n    func purchase(_ product: Product) async throws {\n        // StoreKit 2 purchase flow\n    }\n}",
+          "edgeCases": ["Subscription lapses", "Family sharing", "Promotional offers"],
+          "pitfalls": ["Verify receipts properly", "Handle subscription changes"]
+        },
+        {
+          "id": "M7.2",
+          "description": "Create paywall UI",
+          "files": ["FitDadNudge/Views/Subscription/PaywallView.swift"],
+          "implementation": "Build compelling paywall with clear value proposition",
+          "codePattern": "struct PaywallView: View {\n    @StateObject private var subscriptionManager: SubscriptionManager\n    @State private var selectedProduct: Product?\n}",
+          "edgeCases": ["Loading states", "Purchase failures", "Restore needed"],
+          "pitfalls": ["Show price clearly", "Handle all error states"]
+        }
+      ]
+    },
+    "M8": {
+      "steps": [
+        {
+          "id": "M8.1",
+          "description": "Integrate Amplitude",
+          "files": ["FitDadNudge/Core/Analytics/AnalyticsManager.swift"],
+          "implementation": "Implement comprehensive event tracking",
+          "codePattern": "extension AnalyticsManager {\n    func trackWorkoutCompleted(_ workout: Workout, duration: TimeInterval) {\n        track(\"workout_completed\", properties: [...])\n    }\n}",
+          "edgeCases": ["Offline events", "User opts out", "Event batching"],
+          "pitfalls": ["Don't track PII", "Implement event schemas"]
+        },
+        {
+          "id": "M8.2",
+          "description": "Optimize performance",
+          "files": ["FitDadNudge/Core/Performance/PerformanceMonitor.swift"],
+          "implementation": "Add performance monitoring and optimization",
+          "codePattern": "class PerformanceMonitor {\n    func measureWidgetLoad() -> TimeInterval\n    func profileMemoryUsage() -> Float\n}",
+          "edgeCases": ["Low memory warnings", "Background limits", "Thermal state"],
+          "pitfalls": ["Profile on real devices", "Test on older devices"]
+        }
+      ]
+    }
+  },
+  "testingStrategy": {
+    "M1": {
+      "unitTests": [
+        {
+          "name": "testPlatformCompatibility",
+          "description": "Verify platform conditionals work correctly",
+          "inputs": ["iOS environment", "macOS environment"],
+          "expectedOutputs": ["Appropriate code paths execute", "No crashes"],
+          "coverage": "100% of platform-specific code"
+        }
+      ],
+      "integrationTests": [
+        {
+          "name": "testMultiPlatformBuild",
+          "description": "Ensure all targets build successfully",
+          "scenario": "Build for iOS, macOS, watchOS simulators",
+          "expectedResult": "All builds succeed without warnings"
+        }
+      ]
+    },
+    "M2": {
+      "unitTests": [
+        {
+          "name": "testSignInWithApple",
+          "description": "Test authentication flow",
+          "inputs": ["Valid Apple ID", "Invalid credentials", "Network error"],
+          "expectedOutputs": ["User authenticated", "Error thrown", "Retry prompted"],
+          "coverage": "AuthenticationManager 90%+"
+        },
+        {
+          "name": "testCloudKitCRUD",
+          "description": "Test CloudKit operations",
+          "inputs": ["User record", "Workout record", "Invalid data"],
+          "expectedOutputs": ["Record saved", "Record fetched", "Error handled"],
+          "coverage": "CloudKitManager 85%+"
+        }
+      ],
+      "integrationTests": [
+        {
+          "name": "testAuthenticationFlow",
+          "description": "End-to-end auth test",
+          "scenario": "User signs in -> Profile created -> CloudKit sync",
+          "expectedResult": "User data persisted and accessible"
+        }
+      ]
+    },
+    "M3": {
+      "unitTests": [
+        {
+          "name": "testWorkoutSession",
+          "description": "Test workout timer and state",
+          "inputs": ["Start workout", "Pause/resume", "Complete"],
+          "expectedOutputs": ["Timer accurate", "State persisted", "Completion recorded"],
+          "coverage": "WorkoutSession 95%+"
+        }
+      ],
+      "integrationTests": [
+        {
+          "name": "testWorkoutFlow",
+          "description": "Complete workout user journey",
+          "scenario": "Select workout -> Play -> Complete -> Sync",
+          "expectedResult": "Workout saved to CloudKit with correct data"
+        }
+      ]
+    }
+  },
+  "securityConsiderations": {
+    "authentication": {
+      "requirements": [
+        "Use Sign in with Apple exclusively",
+        "Store authentication tokens in Keychain",
+        "Implement token refresh mechanism",
+        "Handle revoked credentials gracefully"
+      ],
+      "implementation": "KeychainManager wrapper with proper access control"
+    },
+    "dataValidation": {
+      "rules": [
+        "Validate all user inputs before CloudKit storage",
+        "Sanitize strings to prevent injection",
+        "Validate workout duration ranges (1-300 seconds)",
+        "Verify image URLs before loading"
+      ],
+      "implementation": "Input validation layer with throwing functions"
+    },
+    "privacy": {
+      "requirements": [
+        "Request minimum necessary permissions",
+        "Explain permission usage clearly",
+        "Allow users to revoke permissions",
+        "Implement data deletion on request"
+      ],
+      "implementation": "PrivacyManager to centralize permission handling"
+    },
+    "networking": {
+      "requirements": [
+        "Use HTTPS for all external requests",
+        "Implement certificate pinning for sensitive APIs",
+        "Timeout all network requests",
+        "Handle man-in-the-middle scenarios"
+      ],
+      "implementation": "NetworkManager with URLSession configuration"
+    }
+  },
+  "errorHandling": {
+    "errorTypes": [
+      {
+        "type": "AuthenticationError",
+        "scenarios": ["Sign in cancelled", "Invalid credentials", "Token expired"],
+        "handling": "Present appropriate UI, offer retry",
+        "logging": "Log error type, not user data"
+      },
+      {
+        "type": "NetworkError",
+        "scenarios": ["No internet", "Timeout", "Server error"],
+        "handling": "Show offline UI, queue for retry",
+        "logging": "Log endpoint and error code"
+      },
+      {
+        "type": "PermissionError",
+        "scenarios": ["Calendar denied", "Notifications denied", "HealthKit denied"],
+        "handling": "Explain importance, link to Settings",
+        "logging": "Log permission type and state"
+      },
+      {
+        "type": "DataError",
+        "scenarios": ["Corrupt data", "Missing required fields", "Type mismatch"],
+        "handling": "Use fallback values, report to analytics",
+        "logging": "Log data type and corruption details"
+      }
+    ],
+    "errorFormat": {
+      "structure": {
+        "code": "String (e.g., AUTH_001)",
+        "message": "User-friendly message",
+        "technicalDetails": "Developer-facing details",
+        "recoveryOptions": ["Retry", "Cancel", "Settings"]
+      }
+    },
+    "loggingRequirements": {
+      "levels": ["debug", "info", "warning", "error", "critical"],
+      "format": "[LEVEL] [TIMESTAMP] [MODULE] Message",
+      "storage": "OSLog for system integration",
+      "retention": "7 days local, 30 days remote"
+    }
+  },
+  "performanceRequirements": {
+    "targets": {
+      "appLaunch": {
+        "cold": "< 2s",
+        "warm": "< 0.5s",
+        "measurement": "Time to first meaningful paint"
+      },
+      "widgetRender": {
+        "p50": "< 100ms",
+        "p95": "< 150ms",
+        "measurement": "Timeline entry generation time"
+      },
+      "workoutSync": {
+        "iPhoneToWatch": "< 1s",
+        "measurement": "Time from action to watch update"
+      },
+      "memoryUsage": {
+        "baseline": "< 50MB",
+        "peak": "< 150MB",
+        "measurement": "Instruments memory profiler"
+      }
+    },
+    "optimizations": [
+      "Lazy load images and GIFs",
+      "Implement view recycling in lists",
+      "Use thumbnail previews before full images",
+      "Cache computed values appropriately",
+      "Profile and optimize Core Data queries"
+    ],
+    "testing": {
+      "tools": ["Instruments", "XCTest Performance", "MetricKit"],
+      "scenarios": ["Cold launch", "Scroll 100 workouts", "Background refresh"],
+      "devices": ["iPhone 12 mini", "iPhone 15 Pro Max", "Apple Watch Series 6"]
+    }
+  },
+  "documentationRequirements": {
+    "codeDocumentation": {
+      "standard": "Swift DocC format",
+      "requirements": [
+        "All public APIs must have documentation",
+        "Include parameter descriptions",
+        "Provide usage examples for complex APIs",
+        "Document thrown errors"
+      ],
+      "example": "/// Fetches calendar gaps for the specified time range\n/// - Parameters:\n///   - startDate: Beginning of time range\n///   - hours: Number of hours to scan\n/// - Returns: Array of detected calendar gaps\n/// - Throws: CalendarError if access denied"
+    },
+    "apiDocumentation": {
+      "format": "OpenAPI 3.0 for REST endpoints",
+      "cloudKit": "Document all record types and fields",
+      "example": "Document expected CloudKit record structures"
+    },
+    "userDocumentation": {
+      "inApp": [
+        "Onboarding flow with feature explanations",
+        "Contextual help buttons",
+        "FAQ section in settings"
+      ],
+      "external": [
+        "App Store description",
+        "Support website",
+        "Video tutorials"
+      ]
+    },
+    "inlineComments": {
+      "when": [
+        "Complex algorithms",
+        "Non-obvious business logic",
+        "Workarounds for system bugs",
+        "Performance optimizations"
+      ],
+      "format": "// TODO: for future work\n// FIXME: for known issues\n// NOTE: for important context"
+    }
+  },
+  "qualityGates": {
+    "M1": {
+      "metrics": {
+        "buildSuccess": "100% of targets build",
+        "compilerWarnings": "0",
+        "swiftLintViolations": "0",
+        "testCoverage": "N/A (fixing build)"
+      },
+      "checklist": [
+        "All platform conditionals added",
+        "Bundle IDs updated",
+        "Build configurations correct",
+        "No force unwraps added"
+      ]
+    },
+    "M2": {
+      "metrics": {
+        "testCoverage": "> 80%",
+        "codeComplexity": "< 10 per function",
+        "duplicateCode": "< 3%",
+        "technicalDebt": "< 2 hours"
+      },
+      "checklist": [
+        "Authentication flow tested manually",
+        "Error handling comprehensive",
+        "CloudKit schema matches code",
+        "No hardcoded values"
+      ]
+    },
+    "M3": {
+      "metrics": {
+        "testCoverage": "> 85%",
+        "performanceTests": "All passing",
+        "memoryLeaks": "0",
+        "crashRate": "0%"
+      },
+      "checklist": [
+        "UI responsive on all devices",
+        "Animations smooth (60fps)",
+        "Accessibility labels added",
+        "Edge cases handled"
+      ]
+    },
+    "globalQuality": {
+      "lintingRules": {
+        "swiftlint": ".swiftlint.yml with strict rules",
+        "enforced": [
+          "force_unwrapping",
+          "force_cast",
+          "line_length: 120",
+          "file_length: 400",
+          "type_body_length: 200"
+        ]
+      },
+      "codeReview": {
+        "required": "All PRs need 1 approval",
+        "checklist": [
+          "Code follows style guide",
+          "Tests added/updated",
+          "Documentation updated",
+          "No security issues",
+          "Performance considered"
+        ]
+      },
+      "definitionOfDone": [
+        "Code reviewed and approved",
+        "All tests passing",
+        "Documentation complete",
+        "No lint violations",
+        "Manually tested on device",
+        "Accessibility verified",
+        "Performance benchmarks met"
+      ]
+    }
+  },
+  "versionControlStrategy": {
+    "commitGuidelines": {
+      "format": "<type>(<scope>): <subject>",
+      "types": ["feat", "fix", "docs", "style", "refactor", "test", "chore"],
+      "examples": [
+        "feat(workout): add timer pause functionality",
+        "fix(auth): handle token expiration correctly",
+        "docs(readme): update setup instructions"
+      ],
+      "atomicity": "One logical change per commit",
+      "size": "Prefer smaller commits (< 200 lines)"
+    },
+    "branchNaming": {
+      "format": "<type>/<ticket>-<description>",
+      "examples": [
+        "feature/M3-workout-player",
+        "fix/M1-platform-compatibility",
+        "chore/M8-analytics-setup"
+      ]
+    },
+    "commitBoundaries": [
+      "After completing a subtask",
+      "Before switching context",
+      "After achieving green tests",
+      "Before refactoring",
+      "After implementing review feedback"
+    ],
+    "prGuidelines": {
+      "maxSize": "400 lines of code",
+      "description": "Clear description of what and why",
+      "checklist": "Use PR template",
+      "reviewers": "Tag appropriate team members"
+    }
+  },
+  "currentProjectStatus": {
+    "completed": [
+      "Basic project structure created",
+      "Core models implemented (User, Workout, Gamification)",
+      "Some managers stubbed (Calendar, Analytics)",
+      "Test structure in place",
+      "Basic views created"
+    ],
+    "issues": [
+      "Platform compatibility broken (UIKit on macOS)",
+      "Bundle IDs need updating",
+      "Many views are just stubs",
+      "No actual functionality implemented",
+      "Missing key features (HealthKit, Notifications, Widget logic)"
+    ],
+    "nextSteps": [
+      "Fix build issues (M1)",
+      "Complete authentication (M2)",
+      "Implement core workout features (M3)",
+      "Add widget and notifications (M4)"
+    ]
+  }
+}
