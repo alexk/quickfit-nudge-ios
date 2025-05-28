@@ -199,7 +199,7 @@ extension Product {
         }
     }
     
-    var displayPrice: String {
+    var formattedPrice: String {
         self.displayPrice
     }
     
