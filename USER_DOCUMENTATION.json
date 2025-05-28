@@ -1,0 +1,806 @@
+{
+  "documentation_structure": {
+    "getting_started": {
+      "title": "Getting Started with QuickFit Nudge",
+      "sections": [
+        {
+          "id": "GS001",
+          "title": "System Requirements",
+          "content": "Before installing QuickFit Nudge, ensure your device meets these requirements:\n\n**Minimum Requirements:**\n- iOS 16.0 or later\n- iPhone XS or newer\n- 50MB available storage\n- Active calendar with events\n\n**Recommended:**\n- iOS 17.0+ for enhanced calendar features\n- Apple Watch Series 4+ for companion app\n- Apple Health app for fitness tracking\n- Stable internet connection for sync"
+        },
+        {
+          "id": "GS002", 
+          "title": "Installation",
+          "content": "**Download from App Store:**\n1. Open the App Store on your iPhone\n2. Search for 'QuickFit Nudge'\n3. Tap 'Get' to download (app is free with premium subscription)\n4. Wait for installation to complete\n5. Tap 'Open' or find the app icon on your home screen\n\n**First Launch:**\nThe app will automatically start the setup process when you first open it."
+        },
+        {
+          "id": "GS003",
+          "title": "Account Setup & Onboarding", 
+          "content": "QuickFit Nudge guides you through a simple 4-step setup:\n\n**Step 1: Welcome**\n- Review app introduction and core features\n- Swipe right to continue\n\n**Step 2: Calendar Access**\n- Tap 'Allow Calendar Access'\n- Choose 'Full Access' in iOS settings\n- This lets us find workout gaps in your schedule\n\n**Step 3: Notifications** \n- Tap 'Enable Notifications'\n- Choose 'Allow' in the permission dialog\n- We'll send smart reminders when it's time to work out\n\n**Step 4: Health Integration (Optional)**\n- Tap 'Connect to Health' or 'Skip'\n- If connecting, choose which data to share\n- This helps track your fitness progress over time\n\n**You're Ready!**\nThe app immediately scans your calendar and suggests your first workout."
+        },
+        {
+          "id": "GS004",
+          "title": "Your First Workout",
+          "content": "**Getting Started in 2 Minutes:**\n\n1. **Find Your First Gap**\n   - Look for the 'Next Workout Gap' card on your home screen\n   - This shows the perfect time for your next quick workout\n   - The app suggests the ideal workout type based on your schedule\n\n2. **Start a Quick Workout**\n   - If no gaps are available, try a 'Quick Action' button\n   - Tap '1-Min Breathing' for an instant stress-relief session\n   - Follow the on-screen instructions\n\n3. **Complete Your Workout** \n   - The app automatically detects when you finish\n   - You'll see a celebration screen with your achievement\n   - Your first streak day is now started!\n\n**Quick Wins:**\n- Complete 3 workouts to unlock your first achievement badge\n- Try each workout type to discover your favorites\n- Check the Progress tab to see your growing streak"
+        }
+      ]
+    },
+    "features": {
+      "title": "Feature Documentation",
+      "sections": [
+        {
+          "id": "F001",
+          "title": "Smart Calendar Integration",
+          "overview": "QuickFit Nudge analyzes your calendar to find perfect 1-5 minute gaps between meetings and appointments, then suggests workouts that fit exactly in those windows.",
+          "how_to_use": [
+            "**Automatic Scanning:**\n1. The app scans your calendar every 30 minutes\n2. It looks ahead 48 hours for upcoming gaps\n3. Gaps appear as cards on your home screen\n4. Each card shows the time window and suggested workout",
+            "**Manual Refresh:**\n1. Pull down on the home screen to refresh\n2. Or tap the refresh icon in the top right\n3. The app rescans your calendar immediately\n4. New gaps appear within seconds",
+            "**Gap Quality:**\n- **Excellent** (4-5 min): Perfect for strength or cardio\n- **Good** (3 min): Great for HIIT or stretching  \n- **Fair** (2 min): Ideal for stretching\n- **Poor** (1 min): Best for breathing exercises"
+          ],
+          "use_cases": [
+            "**Busy Professional:** Calendar packed with back-to-back meetings? The app finds those precious 3-minute windows between calls for a quick energy boost.",
+            "**Work From Home:** Transition between tasks with movement breaks that help you stay focused and healthy.",
+            "**Parent Schedule:** Between dropping kids off and picking them up, squeeze in workouts that fit your family routine."
+          ],
+          "tips": [
+            "**Pro Tip:** Block 5-minute 'buffer' times in your calendar for guaranteed workout windows",
+            "**Best Practice:** Keep your calendar updated for most accurate gap detection",
+            "**Power User:** Use multiple calendars (work, personal, family) for comprehensive gap finding"
+          ],
+          "common_issues": [
+            "**No gaps showing?** Check calendar permissions in Settings > Privacy > Calendars",
+            "**Wrong suggestions?** The app learns your preferences over time",
+            "**Gaps too short?** Adjust your calendar to include small buffers between events"
+          ]
+        },
+        {
+          "id": "F002", 
+          "title": "Workout Library & Types",
+          "overview": "Six carefully designed workout categories that require no equipment and fit into micro-windows of time.",
+          "how_to_use": [
+            "**Browse Workouts:**\n1. Tap the 'Library' tab at the bottom\n2. Choose a category: Breathing, Stretching, HIIT, Strength, Cardio, or Family\n3. Filter by duration (1-5 minutes) or difficulty\n4. Tap any workout to see details and start",
+            "**Quick Actions:**\n1. From the home screen, tap any Quick Action button\n2. '1-Min Breathing' - instant stress relief\n3. '2-Min Stretch' - perfect desk break\n4. '3-Min HIIT' - energy boost\n5. 'Family Fun' - activities with kids",
+            "**During Workouts:**\n1. Follow the step-by-step instructions on screen\n2. Use the timer to stay on track\n3. Tap pause if you need a moment\n4. The app auto-detects completion via your phone's motion sensors"
+          ],
+          "workout_details": {
+            "breathing": {
+              "duration": "1 minute",
+              "equipment": "None",
+              "perfect_for": "Stress relief, meditation, between stressful meetings",
+              "sample_exercises": ["Deep breathing", "Box breathing", "Calming visualization"]
+            },
+            "stretching": {
+              "duration": "2-5 minutes", 
+              "equipment": "None",
+              "perfect_for": "Desk breaks, morning wake-ups, post-workout cooldown",
+              "sample_exercises": ["Neck rolls", "Shoulder shrugs", "Spinal twists", "Hip circles"]
+            },
+            "hiit": {
+              "duration": "3 minutes",
+              "equipment": "None", 
+              "perfect_for": "Energy boost, metabolism kick, midday pick-me-up",
+              "sample_exercises": ["Jumping jacks", "High knees", "Burpees", "Mountain climbers"]
+            },
+            "strength": {
+              "duration": "3-5 minutes",
+              "equipment": "None",
+              "perfect_for": "Building muscle, functional fitness, feeling strong",
+              "sample_exercises": ["Push-ups", "Squats", "Planks", "Lunges"]
+            },
+            "cardio": {
+              "duration": "3 minutes", 
+              "equipment": "None",
+              "perfect_for": "Heart health, circulation, energy boost",
+              "sample_exercises": ["Marching in place", "Butt kicks", "Shadow boxing", "Step-ups"]
+            },
+            "family": {
+              "duration": "5 minutes",
+              "equipment": "None",
+              "perfect_for": "Quality time with kids, teaching healthy habits",
+              "sample_exercises": ["Animal walks", "Dance party", "Simon says", "Obstacle courses"]
+            }
+          },
+          "tips": [
+            "**Start Small:** Begin with 1-minute breathing exercises to build the habit",
+            "**Mix It Up:** Try different workout types to keep things interesting", 
+            "**Family Time:** Get kids involved with the family workout category",
+            "**Listen to Your Body:** Choose lower intensity if you're tired or stressed"
+          ]
+        },
+        {
+          "id": "F003",
+          "title": "Apple Watch Companion",
+          "overview": "Complete workout experience on your wrist with haptic feedback, independent operation, and seamless iPhone sync.",
+          "how_to_use": [
+            "**Initial Setup:**\n1. Install QuickFit Nudge on your iPhone first\n2. The Watch app installs automatically\n3. Open the Watch app and complete pairing\n4. Grant HealthKit permissions for workout tracking",
+            "**Starting Workouts:**\n1. Open QuickFit Nudge on your Apple Watch\n2. Browse suggested workouts or quick actions\n3. Tap 'Start' and feel the gentle haptic confirmation\n4. Follow instructions on the watch screen",
+            "**During Workouts:**\n1. Feel haptic taps for exercise transitions\n2. See your progress on the circular timer\n3. Tap the Digital Crown to pause/resume\n4. Completion is detected automatically with celebration haptics",
+            "**Independent Use:**\n1. Your Watch works without your iPhone nearby\n2. Workouts sync back when devices reconnect\n3. HealthKit data is saved locally and synced later"
+          ],
+          "use_cases": [
+            "**Traveling:** Work out in your hotel room using just your Watch",
+            "**Phone-Free:** Exercise in the backyard while kids play, no phone needed",
+            "**Discrete Workouts:** Quick breathing exercises in meetings using only Watch vibrations"
+          ],
+          "tips": [
+            "**Haptic Feedback:** Keep 'Prominent Haptic' enabled in Watch settings for best experience",
+            "**Battery Optimization:** Watch app uses minimal battery (less than 2% per workout)",
+            "**Complication Access:** Add QuickFit Nudge to your watch face for instant access (coming soon)"
+          ]
+        },
+        {
+          "id": "F004",
+          "title": "Home Screen Widget",
+          "overview": "Stay motivated and never miss a workout opportunity with live widgets showing your next gap and quick workout access.",
+          "how_to_use": [
+            "**Adding Widget to Home Screen:**\n1. Long-press empty space on your iPhone home screen\n2. Tap the '+' icon in the top left\n3. Search for 'QuickFit Nudge'\n4. Choose widget size: Small, Medium, or Large\n5. Tap 'Add Widget' and position where desired",
+            "**Widget Information:**\n- **Small Widget:** Next gap countdown and quick start button\n- **Medium Widget:** Next gap + current streak + motivational message\n- **Large Widget:** Full gap schedule + recent achievements",
+            "**Quick Actions:**\n1. Tap widget to open app to relevant screen\n2. Tap 'Start Workout' to jump directly into your suggested exercise\n3. Widget updates every 30 minutes with new information"
+          ],
+          "tips": [
+            "**Widget Stack:** Add multiple sizes to a widget stack for different information depths",
+            "**Lock Screen:** Add small widget to iOS 16+ lock screen for instant access",
+            "**Apple Watch:** Coming soon - watch face complications for wrist-based quick access"
+          ]
+        },
+        {
+          "id": "F005",
+          "title": "Streaks & Achievements",
+          "overview": "Gamified progress tracking that celebrates consistency and motivates long-term healthy habits.",
+          "how_to_use": [
+            "**Viewing Progress:**\n1. Tap 'Progress' tab to see all streaks and achievements\n2. Current streaks show with flame icons\n3. Tap any achievement to see progress and requirements\n4. Share achievements via social media or messages",
+            "**Streak Types:**\n- **Daily Workouts:** Consecutive days with at least one completed workout\n- **Weekly Goal:** Complete 5+ workouts per week consistently  \n- **Early Bird:** Workouts completed before 7 AM\n- **Family Champion:** Regular family workouts with kids\n- **Consistency King:** Workout at similar times regularly",
+            "**Achievement Tiers:**\n- **Bronze:** First steps (1-3 workouts)\n- **Silver:** Building habits (7-14 workouts) \n- **Gold:** Serious commitment (30+ workouts)\n- **Platinum:** Lifestyle transformation (100+ workouts)"
+          ],
+          "use_cases": [
+            "**Motivation:** Check progress when feeling unmotivated to see how far you've come",
+            "**Social Proof:** Share achievement screenshots to inspire friends and family",
+            "**Goal Setting:** Work toward next milestone badge for continued engagement"
+          ],
+          "tips": [
+            "**Grace Periods:** Daily streaks have 48-hour grace period for sick days or emergencies",
+            "**Multiple Streaks:** Focus on one streak type initially, then add others as habits form",
+            "**Celebration:** App celebrates every milestone with notifications and visual rewards"
+          ]
+        },
+        {
+          "id": "F006",
+          "title": "Smart Notifications", 
+          "overview": "Perfectly timed, actionable notifications that help you never miss a workout opportunity.",
+          "how_to_use": [
+            "**Gap Notifications:**\n1. Receive alerts 5 minutes before detected calendar gaps\n2. Notification shows gap duration and suggested workout\n3. Tap notification to open app and start workout\n4. Or use quick actions: 'Start Now', 'Remind in 30min', 'Dismiss'",
+            "**Streak Reminders:**\n1. Daily gentle reminders to maintain your streak\n2. Customizable timing (default 8 PM)\n3. Only sent if you haven't worked out that day\n4. Motivational messages that evolve with your progress",
+            "**Achievement Notifications:**\n1. Instant celebration when you unlock new badges\n2. Rich notifications with achievement details\n3. Tap to share accomplishment or view progress",
+            "**Notification Settings:**\n1. Go to Settings tab > Notifications\n2. Toggle notification types on/off\n3. Adjust timing preferences\n4. Control notification frequency"
+          ],
+          "notification_types": {
+            "gap_alerts": {
+              "timing": "5 minutes before gap starts",
+              "content": "Perfect timing! You've got 3 minutes for a quick HIIT session",
+              "actions": ["Start Now", "Remind Later", "Dismiss"]
+            },
+            "streak_reminders": {
+              "timing": "Daily at chosen time (default 8 PM)",
+              "content": "Your streak is counting on you - just a few minutes keeps momentum going",
+              "actions": ["Quick Workout", "View Progress"]
+            },
+            "achievements": {
+              "timing": "Immediately upon unlock",
+              "content": "Achievement unlocked! You earned Week Warrior - 7 consecutive days",
+              "actions": ["Share", "View Progress"]
+            }
+          },
+          "tips": [
+            "**Smart Timing:** Notifications only appear during appropriate hours (7 AM - 10 PM)",
+            "**Context Aware:** Gap notifications won't interrupt 'Do Not Disturb' or Focus modes",
+            "**Personalization:** Messages become more personalized as the app learns your patterns"
+          ]
+        }
+      ]
+    },
+    "ui_guide": {
+      "title": "User Interface Guide",
+      "sections": [
+        {
+          "id": "UI001",
+          "title": "Navigation Structure",
+          "content": "**Tab Bar Navigation (Bottom of Screen):**\n\n**🏠 Home Tab**\n- Your main dashboard and starting point\n- Shows next workout gap with countdown timer\n- Quick action buttons for instant workouts\n- Recent activity feed and daily tips\n\n**🔥 Progress Tab** \n- All streaks and achievement tracking\n- Visual progress indicators with flame icons\n- Achievement gallery with unlock status\n- Social sharing options for milestones\n\n**📚 Library Tab**\n- Complete workout catalog organized by type\n- Filter by duration, difficulty, or equipment\n- Detailed workout previews and instructions\n- Favorite workouts for quick access\n\n**👨‍👧‍👦 Family Tab**\n- Kid-friendly workouts and challenges\n- Family activity suggestions\n- Parent tips for encouraging kids\n- Age-appropriate exercise modifications\n\n**⚙️ Settings Tab**\n- Account management and subscription status\n- Notification preferences and timing\n- Workout preferences (duration, types)\n- Privacy settings and data management"
+        },
+        {
+          "id": "UI002", 
+          "title": "Key Screen Elements",
+          "content": "**Home Screen Components:**\n\n**Welcome Header**\n- Personalized greeting based on time of day\n- Your name and current streak count\n- Weather-based workout suggestions (future feature)\n\n**Next Gap Card**\n- Prominent display of upcoming workout opportunity\n- Countdown timer until gap starts\n- Recommended workout type and duration\n- 'Start Workout' button in app primary blue\n\n**Quick Actions Row**\n- Four circular buttons for instant workouts:\n  - 🫁 1-Min Breathing (light blue)\n  - 🤸 2-Min Stretch (green) \n  - ⚡ 3-Min HIIT (orange)\n  - 👨‍👧‍👦 Family Fun (purple)\n\n**Daily Tip Card**\n- Rotating motivational or instructional content\n- Practical advice for staying active\n- Tap to expand for more details\n\n**Recent Activity**\n- Last 3 completed workouts with times\n- Streak indicators and achievement progress\n- Quick restart buttons for favorite workouts"
+        },
+        {
+          "id": "UI003",
+          "title": "Workout Player Interface", 
+          "content": "**Full-Screen Workout Experience:**\n\n**Header**\n- Workout name and remaining time\n- Pause button (top left)\n- Early completion button (top right)\n\n**Main Content Area**\n- Large, clear instruction text\n- Exercise demonstration (future: animations/videos)\n- Current step indicator (Step 2 of 4)\n\n**Progress Ring**\n- Circular timer showing workout progress\n- Color-coded by workout type\n- Animated completion celebration\n\n**Control Buttons**\n- Large pause/resume button (center bottom)\n- Previous/next instruction arrows\n- Emergency stop button (discrete, top corner)\n\n**Apple Watch Integration Indicator**\n- Small watch icon when connected\n- Sync status and haptic feedback confirmation"
+        },
+        {
+          "id": "UI004",
+          "title": "Button and Icon Guide",
+          "content": "**Primary Action Buttons:**\n- **Start Workout:** Blue background, white text, rounded corners\n- **Pause/Resume:** Orange toggle button with play/pause icons\n- **Complete:** Green checkmark button, appears when workout can be finished early\n\n**Navigation Icons:**\n- **🏠 house.fill:** Home tab - main dashboard\n- **🔥 flame.fill:** Progress tab - streaks and achievements  \n- **📚 books.vertical.fill:** Library tab - workout catalog\n- **👨‍👧‍👦 figure.2.and.child.holdinghands:** Family tab - kid workouts\n- **⚙️ gearshape.fill:** Settings tab - preferences\n\n**Workout Type Icons:**\n- **🫁 wind:** Breathing exercises\n- **🤸 figure.flexibility:** Stretching and mobility\n- **⚡ bolt.fill:** HIIT and high-intensity\n- **💪 dumbbell.fill:** Strength training\n- **❤️ heart.circle.fill:** Cardio workouts\n- **👨‍👧‍👦 figure.2.and.child.holdinghands:** Family activities\n\n**Status Indicators:**\n- **🔥 Flame icons:** Active streaks with day count\n- **🏆 Trophy icons:** Completed achievements\n- **📱 Phone icon:** iPhone workout in progress\n- **⌚ Watch icon:** Apple Watch connected\n- **☁️ Cloud icon:** Syncing to iCloud"
+        },
+        {
+          "id": "UI005",
+          "title": "Accessibility Features",
+          "content": "**VoiceOver Support:**\n- All buttons and controls have descriptive labels\n- Workout instructions read aloud during exercises\n- Progress announcements at key milestones\n- Navigation assistance between screens\n\n**Dynamic Type:**\n- Text scales with iOS accessibility text size settings\n- Maintains readability at all size levels\n- Icon scaling for better visibility\n\n**Reduced Motion:**\n- Animations can be disabled in iOS settings\n- Static progress indicators replace animated elements\n- Simplified transitions between screens\n\n**High Contrast:**\n- Enhanced color contrast in high contrast mode\n- Alternative color schemes for better visibility\n- Bold outlines on important elements\n\n**Hearing Accessibility:**\n- Visual workout cues supplement audio instructions\n- Haptic feedback on Apple Watch for silent guidance\n- Progress indicators don't rely on sound\n\n**Motor Accessibility:**\n- Large touch targets (minimum 44x44 points)\n- Simplified gestures (tap and swipe only)\n- Voice Control support for hands-free operation\n- Switch Control compatibility for external switches"
+        }
+      ]
+    },
+    "tutorials": {
+      "title": "Step-by-Step Tutorials",
+      "sections": [
+        {
+          "id": "T001",
+          "title": "Setting Up Your Perfect Workout Schedule",
+          "steps": [
+            "**Step 1: Review Your Calendar**\nOpen your default calendar app and ensure all your meetings, appointments, and commitments are properly scheduled with accurate start and end times.",
+            "**Step 2: Add Buffer Times**\nFor optimal gap detection, add 5-minute buffer periods before important meetings. This gives you guaranteed workout windows.",
+            "**Step 3: Configure QuickFit Nudge**\nGo to Settings → Workout Preferences and set:\n- Preferred workout duration (1-5 minutes)\n- Workout types you enjoy most\n- Times when you don't want to be disturbed",
+            "**Step 4: Enable Smart Notifications**\nIn Settings → Notifications:\n- Turn on 'Gap Alerts' for workout reminders\n- Set your preferred reminder timing (5-15 minutes before gaps)\n- Enable 'Streak Reminders' for daily motivation",
+            "**Step 5: Test the System**\nCreate a fake 10-minute gap in your calendar tomorrow and watch QuickFit Nudge detect it and suggest the perfect workout."
+          ],
+          "expected_outcome": "You'll start receiving perfectly timed workout suggestions that fit seamlessly into your existing schedule without disrupting your day.",
+          "tips": [
+            "Start with longer buffer times (10 minutes) and gradually reduce as you get faster at workouts",
+            "Use calendar blocking for 'workout windows' during particularly busy weeks",
+            "Sync all your calendars (work, personal, family) for comprehensive gap detection"
+          ]
+        },
+        {
+          "id": "T002",
+          "title": "Building Your First 7-Day Streak",
+          "steps": [
+            "**Day 1: Start Small**\nComplete any 1-minute breathing exercise. This builds the habit without intimidation. Use a calendar gap or Quick Action button.",
+            "**Day 2: Add Movement** \nTry a 2-minute stretching session. Perfect for between meetings or during TV commercial breaks.",
+            "**Day 3: Increase Intensity**\nComplete a 3-minute HIIT workout. Use a detected gap or schedule a specific time in your calendar.",
+            "**Day 4: Family Time**\nInvolve kids or partner with a 5-minute family workout. This counts toward multiple streaks simultaneously.",
+            "**Day 5: Morning Energy**\nTry an early morning workout (before 7 AM) to start your Early Bird streak alongside your daily streak.",
+            "**Day 6: Workplace Wellness**\nUse a work break for a quick stretching or breathing session. Show colleagues how easy workplace fitness can be.",
+            "**Day 7: Celebration**\nComplete any workout to achieve your 'Week Warrior' badge! Take a screenshot and share your success."
+          ],
+          "expected_outcome": "You'll unlock your first achievement badge and establish a sustainable daily movement habit that fits your lifestyle.",
+          "troubleshooting": [
+            "**Missed a day?** The app has 48-hour grace periods - complete two workouts the next day to maintain your streak",
+            "**Too busy?** Remember that 1-minute breathing exercises count - something is always better than nothing",
+            "**Lost motivation?** Check your Progress tab to see how far you've come and what badges await"
+          ]
+        },
+        {
+          "id": "T003",
+          "title": "Maximizing Apple Watch Integration",
+          "steps": [
+            "**Step 1: Initial Setup**\nEnsure your Apple Watch is paired and running watchOS 9.0+. Open QuickFit Nudge on iPhone and allow HealthKit access.",
+            "**Step 2: Install Watch App**\nThe watch app installs automatically. If not, open the Watch app on iPhone → My Watch → scroll to 'Available Apps' → install QuickFit Nudge.",
+            "**Step 3: Configure Health Permissions**\nOn your watch: Settings → Privacy & Security → Health → QuickFit Nudge → Allow all permissions for workout tracking.",
+            "**Step 4: Test Standalone Operation**\nLeave your iPhone at home and try starting a workout from your watch. It should work independently and sync later.",
+            "**Step 5: Customize Haptic Feedback**\nIn Watch Settings → Sounds & Haptics → enable 'Prominent Haptic' for better workout cue feedback.",
+            "**Step 6: Set Up Complications (Future)**\nAdd QuickFit Nudge to your watch face for instant workout access without opening the app."
+          ],
+          "expected_outcome": "Your Apple Watch becomes a complete, independent fitness companion that works with or without your iPhone nearby.",
+          "use_cases": [
+            "**Phone-Free Workouts:** Exercise in the garden while kids play, using only watch guidance",
+            "**Discrete Office Workouts:** Use haptic-only breathing exercises during meetings",
+            "**Travel Fitness:** Work out in hotel rooms using just your watch and bodyweight"
+          ]
+        },
+        {
+          "id": "T004",
+          "title": "Creating Family Fitness Routines",
+          "steps": [
+            "**Step 1: Start with Fun**\nOpen Family tab and choose 'Dance Party' workout. Let kids pick their favorite song and follow along.",
+            "**Step 2: Involve Kids in Planning**\nShow children the different family workout options and let them choose tomorrow's activity. Ownership increases participation.",
+            "**Step 3: Create Challenges**\nSet up friendly competitions: 'Who can hold a plank the longest?' or 'Best animal walk impression?'",
+            "**Step 4: Schedule Regular Times**\nBlock 5-10 minutes in your calendar for family fitness time. Consistency helps it become a habit for everyone.",
+            "**Step 5: Celebrate Together**\nWhen you unlock family-related achievements, celebrate as a family. Take photos and create positive associations.",
+            "**Step 6: Adapt to Age Groups**\nUse the age recommendations in each family workout. Older kids can do full exercises while toddlers can 'help' or watch."
+          ],
+          "age_recommendations": {
+            "2-4_years": "Focus on copying movements, basic jumping, and following simple instructions like 'hop like a bunny'",
+            "5-8_years": "Can follow multi-step instructions, compete in friendly challenges, and understand basic fitness concepts",
+            "9-12_years": "Can do modified adult exercises, track their own progress, and help motivate younger siblings",
+            "teenagers": "Can participate in full adult workouts and may prefer competing against parents' achievements"
+          },
+          "tips": [
+            "Always prioritize fun over perfect form with kids",
+            "Use imagination - 'warrior poses' and 'animal movements' are more engaging than 'squats' and 'lunges'",
+            "Short sessions (3-5 minutes) work better than longer ones for young children",
+            "Let kids demonstrate exercises to the family for confidence building"
+          ]
+        }
+      ]
+    },
+    "troubleshooting": {
+      "title": "Troubleshooting Guide",
+      "sections": [
+        {
+          "id": "TS001", 
+          "title": "Calendar & Gap Detection Issues",
+          "problems": [
+            {
+              "issue": "No workout gaps showing in app",
+              "causes": [
+                "Calendar permissions not granted",
+                "Calendar is empty or has no events",
+                "All events are all-day events",
+                "Events don't have end times"
+              ],
+              "solutions": [
+                "Go to Settings → Privacy → Calendars → QuickFit Nudge → Enable 'Full Access'",
+                "Add some test events to your calendar with specific start/end times",
+                "Ensure events have specific start and end times, not all-day settings",
+                "Edit existing events to include end times"
+              ],
+              "verification": "Pull down on home screen to refresh. You should see calendar gaps appear within 10 seconds."
+            },
+            {
+              "issue": "App suggests workouts during busy times",
+              "causes": [
+                "Calendar events missing or incomplete",
+                "Multiple calendars not all authorized",
+                "Events marked as 'Free' instead of 'Busy'"
+              ],
+              "solutions": [
+                "Check that all relevant calendars are enabled in iOS Settings",
+                "Ensure work calendar is connected if using Exchange/Google",
+                "Set event availability to 'Busy' for meetings you can't interrupt"
+              ]
+            },
+            {
+              "issue": "Gaps detected but notification timing is wrong",
+              "causes": [
+                "Notification timing preference set incorrectly",
+                "Time zone issues with calendar events",
+                "iOS Focus modes blocking notifications"
+              ],
+              "solutions": [
+                "Go to Settings → Notifications → adjust 'Reminder Timing' to your preference",
+                "Check that calendar events are in correct time zone",
+                "Review iOS Focus mode settings to allow QuickFit Nudge notifications"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "TS002",
+          "title": "Apple Watch Connection Problems", 
+          "problems": [
+            {
+              "issue": "Watch app not installing or missing",
+              "causes": [
+                "iPhone Watch app not updated",
+                "Insufficient storage on Apple Watch",
+                "watchOS version too old"
+              ],
+              "solutions": [
+                "Update Watch app on iPhone to latest version",
+                "Free up storage on Apple Watch (need ~25MB)",
+                "Update to watchOS 9.0 or later",
+                "Manually install: iPhone Watch app → scroll to 'Available Apps' → install QuickFit Nudge"
+              ]
+            },
+            {
+              "issue": "Workouts not syncing between iPhone and Watch",
+              "causes": [
+                "Bluetooth connection unstable",
+                "Different iCloud accounts on devices",
+                "Background app refresh disabled"
+              ],
+              "solutions": [
+                "Keep devices close together and ensure Bluetooth is enabled",
+                "Verify same iCloud account on both iPhone and Watch",
+                "Enable Background App Refresh for QuickFit Nudge in iOS Settings",
+                "Force sync by opening app on both devices simultaneously"
+              ]
+            },
+            {
+              "issue": "Haptic feedback not working during workouts",
+              "causes": [
+                "Prominent Haptic disabled in Watch settings",
+                "Watch silent mode enabled",
+                "Low battery affecting haptics"
+              ],
+              "solutions": [
+                "Watch Settings → Sounds & Haptics → enable 'Prominent Haptic'",
+                "Check that Watch is not in Silent Mode (red dot on side button)",
+                "Charge Watch above 10% battery for full haptic functionality"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "TS003",
+          "title": "Notification & Alert Issues",
+          "problems": [
+            {
+              "issue": "Not receiving workout reminder notifications",
+              "causes": [
+                "Notifications disabled for QuickFit Nudge",
+                "iOS Focus modes blocking alerts",
+                "Do Not Disturb enabled during workout times",
+                "Notification preferences disabled in app"
+              ],
+              "solutions": [
+                "iOS Settings → Notifications → QuickFit Nudge → ensure 'Allow Notifications' is enabled",
+                "Check Focus mode settings and add QuickFit Nudge to allowed apps",
+                "Adjust Do Not Disturb schedule or add QuickFit Nudge as exception",
+                "In app: Settings → Notifications → enable 'Gap Alerts' and 'Streak Reminders'"
+              ]
+            },
+            {
+              "issue": "Too many notifications or notification spam",
+              "causes": [
+                "Multiple notification types enabled",
+                "Notification frequency set too high",
+                "Test notifications still enabled"
+              ],
+              "solutions": [
+                "Go to Settings → Notifications → disable types you don't want",
+                "Reduce notification frequency in timing preferences",
+                "Restart app to clear any test notifications"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "TS004",
+          "title": "Subscription & Account Issues",
+          "problems": [
+            {
+              "issue": "Premium features not working after subscription",
+              "causes": [
+                "Purchase still processing",
+                "Signed in with different Apple ID",
+                "Receipt verification failed"
+              ],
+              "solutions": [
+                "Wait 5-10 minutes for purchase to process completely",
+                "Ensure same Apple ID used for subscription and app download",
+                "Go to Settings → Account → 'Restore Purchases' to re-verify subscription",
+                "Sign out and back into your Apple ID if issues persist"
+              ]
+            },
+            {
+              "issue": "Can't restore subscription on new device",
+              "causes": [
+                "Different Apple ID on new device",
+                "Family sharing configuration issues",
+                "App Store cache problems"
+              ],
+              "solutions": [
+                "Sign in with the Apple ID used for original purchase",
+                "If using Family Sharing, ensure subscription is shared and family member is authorized",
+                "Sign out of App Store, restart device, sign back in",
+                "In app: Settings → Account → 'Restore Purchases'"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "TS005",
+          "title": "Performance & Technical Issues",
+          "problems": [
+            {
+              "issue": "App running slowly or freezing",
+              "causes": [
+                "Insufficient device storage",
+                "Too many background apps",
+                "iOS version compatibility issues",
+                "Corrupted app data"
+              ],
+              "solutions": [
+                "Free up device storage (need at least 1GB available)",
+                "Close other apps by swiping up and swiping away app cards",
+                "Update to latest iOS version if available",
+                "Delete and reinstall QuickFit Nudge (subscription will restore automatically)"
+              ]
+            },
+            {
+              "issue": "Workout detection not working properly",
+              "causes": [
+                "Motion permissions disabled",
+                "Phone in pocket during workout",
+                "Very gentle exercises not registering movement"
+              ],
+              "solutions": [
+                "Settings → Privacy → Motion & Fitness → enable for QuickFit Nudge",
+                "Hold phone in hand or place on stable surface during workouts",
+                "For gentle exercises like breathing, use manual completion button"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "sections": [
+        {
+          "id": "FAQ001",
+          "category": "Getting Started",
+          "questions": [
+            {
+              "question": "Do I need an Apple Watch to use QuickFit Nudge?",
+              "answer": "No! QuickFit Nudge works perfectly on iPhone alone. The Apple Watch companion app enhances the experience with haptic feedback and wrist-based controls, but all core features work great on just your iPhone."
+            },
+            {
+              "question": "How does the app find time for workouts in my busy schedule?",
+              "answer": "QuickFit Nudge analyzes your calendar to find gaps between meetings and appointments that are 1-5 minutes long. It then suggests workouts that fit perfectly in those windows, so you never have to skip meetings or appointments to stay active."
+            },
+            {
+              "question": "What if I don't have any gaps in my calendar?",
+              "answer": "Even with a packed schedule, you can use the Quick Action buttons on the home screen for instant 1-3 minute workouts. These are perfect for bathroom breaks, while coffee is brewing, or any tiny moment you have available."
+            },
+            {
+              "question": "Do the workouts require any equipment?",
+              "answer": "No equipment needed! All workouts are designed to be done anywhere using just your bodyweight. You can exercise in your office, hotel room, living room, or even a bathroom stall if needed."
+            }
+          ]
+        },
+        {
+          "id": "FAQ002", 
+          "category": "Subscription & Billing",
+          "questions": [
+            {
+              "question": "Is QuickFit Nudge free to use?",
+              "answer": "QuickFit Nudge offers a generous free experience with basic workouts and features. Premium subscription ($9/month) unlocks the full workout library, advanced achievement tracking, and priority support."
+            },
+            {
+              "question": "What's included in the Premium subscription?",
+              "answer": "Premium includes: full workout library (100+ exercises), advanced streak tracking, detailed progress analytics, priority customer support, early access to new features, and family sharing for up to 6 people."
+            },
+            {
+              "question": "Can I cancel my subscription anytime?",
+              "answer": "Yes! You can cancel anytime through your iPhone Settings → [Your Name] → Subscriptions → QuickFit Nudge → Cancel. You'll keep premium access until your current billing period ends."
+            },
+            {
+              "question": "Do you offer family subscriptions?",
+              "answer": "Yes! Premium subscriptions include family sharing, allowing up to 6 family members to access premium features under one subscription. Perfect for getting the whole family active together."
+            }
+          ]
+        },
+        {
+          "id": "FAQ003",
+          "category": "Privacy & Health Data",
+          "questions": [
+            {
+              "question": "What personal data does QuickFit Nudge access?",
+              "answer": "We only access data you explicitly grant permission for: calendar events (to find gaps), health data (to track workouts), and motion data (to detect exercise completion). We never access personal information from your calendar events - only start/end times."
+            },
+            {
+              "question": "Is my health data shared with anyone?",
+              "answer": "Never! Your health and workout data stays on your devices and in your private iCloud account. We don't share, sell, or access your personal health information. You maintain complete control through iOS privacy settings."
+            },
+            {
+              "question": "Can I use the app without connecting to Apple Health?",
+              "answer": "Absolutely! Apple Health integration is entirely optional. You can track workouts within QuickFit Nudge without sharing data with the Health app. All core features work without Health app connection."
+            },
+            {
+              "question": "How do you protect my calendar privacy?",
+              "answer": "We only read event start/end times to identify gaps - never event titles, locations, or attendees. The app processes this information locally on your device and doesn't store or transmit calendar content to our servers."
+            }
+          ]
+        },
+        {
+          "id": "FAQ004",
+          "category": "Workouts & Fitness",
+          "questions": [
+            {
+              "question": "Are these workouts actually effective in just 1-5 minutes?",
+              "answer": "Yes! Micro-workouts have proven benefits: they boost energy, improve circulation, reduce stress, and add up to significant activity over time. Even 1 minute of movement is better than none, and consistency matters more than duration."
+            },
+            {
+              "question": "What if I'm not very fit or haven't exercised in years?",
+              "answer": "Perfect! QuickFit Nudge is designed for real people with real lives. Start with 1-minute breathing exercises to build the habit, then gradually try gentle stretching. Every workout has beginner modifications and progresses at your pace."
+            },
+            {
+              "question": "Can I modify workouts if I have injuries or limitations?",
+              "answer": "Absolutely. Each workout includes modification suggestions, and you can always adapt exercises to your abilities. For specific medical concerns, consult your healthcare provider. The app encourages listening to your body above all else."
+            },
+            {
+              "question": "Will such short workouts actually help me lose weight or build muscle?",
+              "answer": "Micro-workouts primarily boost daily energy, improve mood, and create healthy habits. For significant weight loss or muscle building, you'll need longer workouts too. Think of QuickFit Nudge as the foundation that makes longer workouts more achievable."
+            }
+          ]
+        },
+        {
+          "id": "FAQ005",
+          "category": "Technical Support",
+          "questions": [
+            {
+              "question": "Which devices and iOS versions are supported?",
+              "answer": "QuickFit Nudge requires iOS 16.0 or later and works on iPhone XS and newer. Apple Watch companion requires watchOS 9.0+. The app is optimized for current iOS versions and regularly updated for compatibility."
+            },
+            {
+              "question": "Why isn't my Apple Watch showing workouts?",
+              "answer": "Ensure your watch is running watchOS 9.0+, the watch app is installed, and both devices are signed into the same iCloud account. Try opening the app on both devices simultaneously to force sync."
+            },
+            {
+              "question": "The app isn't finding gaps in my calendar. What's wrong?",
+              "answer": "Check that you've granted 'Full Access' to calendars in iOS Settings → Privacy → Calendars → QuickFit Nudge. Also ensure your calendar events have specific start/end times (not all-day events) and that multiple calendars are all enabled."
+            },
+            {
+              "question": "How do I contact support if I need help?",
+              "answer": "Go to Settings → Help & Support in the app for instant assistance. Premium subscribers get priority email support with typical response within 24 hours. We're here to help you succeed with your fitness goals!"
+            }
+          ]
+        }
+      ]
+    },
+    "reference": {
+      "title": "Reference Materials",
+      "sections": [
+        {
+          "id": "REF001",
+          "title": "Glossary of Terms",
+          "content": {
+            "achievement": "Digital badges earned by completing fitness milestones (e.g., '7-day streak', 'Early Bird'). Achievements provide motivation and track long-term progress.",
+            "calendar_gap": "A period of 1-5 minutes between scheduled calendar events, identified by the app as perfect timing for a quick workout.",
+            "gap_quality": "Rating system (Excellent/Good/Fair/Poor) that evaluates workout opportunities based on duration, timing, and context.",
+            "quick_actions": "One-tap workout buttons on the home screen for instant fitness: 1-Min Breathing, 2-Min Stretch, 3-Min HIIT, Family Fun.",
+            "streak": "Consecutive days of completed workouts. Multiple streak types track different patterns: Daily, Weekly Goal, Early Bird, Family Champion.",
+            "micro_workout": "Ultra-short fitness sessions (1-5 minutes) designed to fit into tiny schedule gaps without changing clothes or needing showers.",
+            "workout_type": "Six categories of exercise: Breathing (stress relief), Stretching (mobility), HIIT (energy boost), Strength (muscle building), Cardio (heart health), Family (kid activities).",
+            "haptic_feedback": "Gentle vibrations on Apple Watch that guide workouts without sound - perfect for discrete exercise or quiet environments.",
+            "family_workouts": "Kid-friendly activities designed for parents and children to exercise together, building healthy family habits.",
+            "premium_subscription": "Paid tier unlocking full workout library, advanced progress tracking, detailed analytics, and priority support."
+          }
+        },
+        {
+          "id": "REF002",
+          "title": "Workout Specifications",
+          "content": {
+            "breathing_exercises": {
+              "duration": "1 minute",
+              "intensity": "Very Low",
+              "equipment": "None",
+              "space_needed": "None (can be done sitting)",
+              "clothing": "Any (no movement required)",
+              "sample_exercises": ["4-7-8 breathing", "Box breathing", "Mindful breath awareness"],
+              "benefits": ["Stress reduction", "Mental clarity", "Heart rate regulation", "Anxiety relief"]
+            },
+            "stretching_sessions": {
+              "duration": "2-5 minutes", 
+              "intensity": "Low",
+              "equipment": "None",
+              "space_needed": "Standing room (3x3 feet)",
+              "clothing": "Work clothes acceptable",
+              "sample_exercises": ["Neck rolls", "Shoulder shrugs", "Spinal twists", "Hip circles"],
+              "benefits": ["Improved flexibility", "Tension relief", "Better posture", "Increased circulation"]
+            },
+            "hiit_workouts": {
+              "duration": "3 minutes",
+              "intensity": "High", 
+              "equipment": "None",
+              "space_needed": "6x6 feet for movement",
+              "clothing": "Comfortable clothes preferred",
+              "sample_exercises": ["Jumping jacks", "High knees", "Burpees", "Mountain climbers"],
+              "benefits": ["Energy boost", "Metabolism increase", "Cardiovascular health", "Mood enhancement"]
+            },
+            "strength_training": {
+              "duration": "3-5 minutes",
+              "intensity": "Medium-High",
+              "equipment": "None (bodyweight only)",
+              "space_needed": "6x3 feet floor space", 
+              "clothing": "Comfortable clothes recommended",
+              "sample_exercises": ["Push-ups", "Squats", "Planks", "Lunges"],
+              "benefits": ["Muscle strengthening", "Bone density", "Functional fitness", "Metabolism boost"]
+            },
+            "cardio_sessions": {
+              "duration": "3 minutes",
+              "intensity": "Medium",
+              "equipment": "None",
+              "space_needed": "4x4 feet for movement",
+              "clothing": "Comfortable clothes preferred",
+              "sample_exercises": ["Marching in place", "Butt kicks", "Shadow boxing", "Step-ups"],
+              "benefits": ["Heart health", "Circulation improvement", "Energy increase", "Mood boost"]
+            },
+            "family_activities": {
+              "duration": "5 minutes",
+              "intensity": "Variable (kid-dependent)",
+              "equipment": "None",
+              "space_needed": "Living room or yard space",
+              "clothing": "Play clothes",
+              "sample_exercises": ["Animal walks", "Dance party", "Simon says", "Obstacle courses"],
+              "benefits": ["Family bonding", "Kid activity", "Healthy habits modeling", "Fun fitness"]
+            }
+          }
+        },
+        {
+          "id": "REF003",
+          "title": "System Limitations & Requirements",
+          "content": {
+            "device_requirements": {
+              "minimum_ios": "16.0",
+              "recommended_ios": "17.0+ (enhanced calendar features)",
+              "minimum_iphone": "iPhone XS (2018)",
+              "recommended_iphone": "iPhone 12 or newer",
+              "storage_needed": "50MB app + 25MB workout content",
+              "ram_usage": "150MB peak memory during workouts"
+            },
+            "apple_watch_requirements": {
+              "minimum_watchos": "9.0",
+              "recommended_watchos": "10.0+",
+              "minimum_model": "Apple Watch Series 4 (2018)",
+              "recommended_model": "Series 6 or newer for best performance",
+              "battery_impact": "2-3% per workout session",
+              "storage_needed": "25MB for watch app"
+            },
+            "calendar_limitations": {
+              "max_events_scanned": "500 events per 48-hour window",
+              "minimum_gap_duration": "60 seconds",
+              "maximum_gap_duration": "300 seconds (5 minutes)",
+              "supported_calendar_types": ["iOS Calendar", "Google Calendar", "Exchange", "Outlook"],
+              "refresh_frequency": "Every 30 minutes, or manual refresh",
+              "timezone_support": "Full support for all timezones and DST"
+            },
+            "workout_limitations": {
+              "minimum_workout_duration": "60 seconds",
+              "maximum_workout_duration": "300 seconds", 
+              "exercises_per_workout": "3-6 exercises maximum",
+              "instruction_complexity": "Simple, one-sentence instructions only",
+              "modification_levels": "Beginner modifications available for all exercises"
+            },
+            "data_sync_limitations": {
+              "icloud_sync_delay": "5-30 seconds typical",
+              "offline_capability": "7 days of cached workouts",
+              "max_workout_history": "2 years of detailed history",
+              "achievement_sync": "Real-time between devices",
+              "backup_retention": "30 days of backup data in iCloud"
+            }
+          ]
+        },
+        {
+          "id": "REF004",
+          "title": "Version History & Updates",
+          "content": {
+            "version_1_0": {
+              "release_date": "Launch Version",
+              "major_features": [
+                "Core calendar gap detection",
+                "6 workout types with 20+ exercises",
+                "Basic streak tracking",
+                "iPhone app with complete functionality",
+                "Apple Health integration",
+                "Local notifications"
+              ],
+              "known_limitations": [
+                "Apple Watch app basic functionality only",
+                "Limited achievement system",
+                "No social features",
+                "Basic notification customization"
+              ]
+            },
+            "upcoming_features": {
+              "version_1_1": [
+                "Apple Watch complications support",
+                "Enhanced family workout content",
+                "Improved notification intelligence",
+                "Workout history analytics"
+              ],
+              "version_1_2": [
+                "Social challenges with friends",
+                "Workout difficulty progression",
+                "Custom workout creation tools",
+                "Integration with fitness trackers"
+              ],
+              "version_2_0": [
+                "AI-powered workout recommendations",
+                "Video exercise demonstrations",
+                "Corporate wellness features",
+                "Advanced calendar integrations"
+              ]
+            },
+            "update_policy": {
+              "frequency": "Monthly minor updates, quarterly major features",
+              "backward_compatibility": "Supports iOS versions for 3 years",
+              "automatic_updates": "Enabled by default, can be disabled in iOS settings",
+              "beta_testing": "TestFlight program available for premium subscribers"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
