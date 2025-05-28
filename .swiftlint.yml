@@ -1,4 +1,4 @@
-# SwiftLint configuration for FitDad Nudge
+# SwiftLint configuration for QuickFit Nudge
 
 # Paths to include
 included:
@@ -121,7 +121,7 @@ file_header:
   required_pattern: |
     \/\/
     \/\/  .*\.swift
-    \/\/  FitDadNudge
+    \/\/  QuickFit Nudge
     \/\/
     \/\/  Created by .* on .*\.
     \/\/

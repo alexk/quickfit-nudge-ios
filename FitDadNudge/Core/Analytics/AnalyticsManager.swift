@@ -48,13 +48,8 @@ final class AnalyticsManager: ObservableObject {
         eventProperties["app_version"] = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown"
         eventProperties["timestamp"] = ISO8601DateFormatter().string(from: Date())
         
-        // Log to console in debug
-        #if DEBUG
-        print("📊 Analytics Event: \(event.rawValue)")
-        if !eventProperties.isEmpty {
-            print("   Properties: \(eventProperties)")
-        }
-        #endif
+        // Log analytics events
+        logDebug("Analytics Event: \(event.rawValue) - Properties: \(eventProperties)", category: .analytics)
         
         // In production, send to Amplitude
         // Amplitude.instance().logEvent(event.rawValue, withEventProperties: eventProperties)
