@@ -12,19 +12,35 @@ final class HealthKitManager: ObservableObject {
     private let healthStore = HKHealthStore()
     
     // Types we want to read
-    private let typesToRead: Set<HKObjectType> = [
-        HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
-        HKObjectType.quantityType(forIdentifier: .heartRate)!,
-        HKObjectType.quantityType(forIdentifier: .stepCount)!,
-        HKObjectType.workoutType()
-    ]
+    private let typesToRead: Set<HKObjectType> = {
+        var types: Set<HKObjectType> = [HKObjectType.workoutType()]
+        
+        if let energyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) {
+            types.insert(energyType)
+        }
+        if let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate) {
+            types.insert(heartRateType)
+        }
+        if let stepType = HKObjectType.quantityType(forIdentifier: .stepCount) {
+            types.insert(stepType)
+        }
+        
+        return types
+    }()
     
     // Types we want to write
-    private let typesToWrite: Set<HKSampleType> = [
-        HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
-        HKObjectType.quantityType(forIdentifier: .heartRate)!,
-        HKObjectType.workoutType()
-    ]
+    private let typesToWrite: Set<HKSampleType> = {
+        var types: Set<HKSampleType> = [HKObjectType.workoutType()]
+        
+        if let energyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) {
+            types.insert(energyType)
+        }
+        if let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate) {
+            types.insert(heartRateType)
+        }
+        
+        return types
+    }()
     
     private init() {
         checkAuthorizationStatus()
@@ -107,8 +123,9 @@ final class HealthKitManager: ObservableObject {
         try await healthStore.save(workout)
         
         // Save heart rate samples if available
-        if let heartRateSamples = heartRateSamples, !heartRateSamples.isEmpty {
-            let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate)!
+        if let heartRateSamples = heartRateSamples, 
+           !heartRateSamples.isEmpty,
+           let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate) {
             let heartRateUnit = HKUnit.count().unitDivided(by: .minute())
             
             let samples = heartRateSamples.map { sample in
@@ -131,7 +148,11 @@ final class HealthKitManager: ObservableObject {
     func fetchTodayCalories() async -> Double? {
         guard isAuthorized else { return nil }
         
-        let energyType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!
+        guard let energyType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) else {
+            logError("Active energy burned type not available", category: .general)
+            return nil
+        }
+        
         let now = Date()
         let startOfDay = Calendar.current.startOfDay(for: now)
         let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
