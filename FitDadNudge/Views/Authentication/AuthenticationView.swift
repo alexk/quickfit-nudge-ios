@@ -1,5 +1,4 @@
 import SwiftUI
-import AuthenticationServices
 
 struct AuthenticationView: View {
     @EnvironmentObject var authManager: AuthenticationManager
@@ -39,21 +38,26 @@ struct AuthenticationView: View {
                 Spacer()
                 
                 // Sign in button
-                SignInWithAppleButton(
-                    onRequest: { request in
-                        request.requestedScopes = [.fullName, .email]
-                    },
-                    onCompletion: { result in
-                        Task {
-                            await handleSignIn(result)
-                        }
+                Button(action: {
+                    Task {
+                        await signIn()
                     }
-                )
-                .signInWithAppleButtonStyle(.white)
-                .frame(height: 50)
-                .cornerRadius(8)
-                .shadow(radius: 5)
+                }) {
+                    HStack {
+                        Image(systemName: "applelogo")
+                            .font(.title3)
+                        Text("Sign in with Apple")
+                            .font(.headline)
+                    }
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                    .background(Color.white)
+                    .cornerRadius(8)
+                    .shadow(radius: 5)
+                }
                 .padding(.horizontal, 40)
+                .disabled(authManager.authState == .loading)
                 
                 // Privacy text
                 Text("By signing in, you agree to our Terms of Service and Privacy Policy")
@@ -72,13 +76,10 @@ struct AuthenticationView: View {
         }
     }
     
-    private func handleSignIn(_ result: Result<ASAuthorization, Error>) async {
-        switch result {
-        case .success(let authorization):
-            // Temporarily handle sign in without the full auth manager
-            // This will be connected properly once all files are in place
-            print("Sign in successful with authorization: \(authorization)")
-        case .failure(let error):
+    private func signIn() async {
+        do {
+            try await authManager.signInWithApple()
+        } catch {
             errorMessage = error.localizedDescription
             showError = true
         }
