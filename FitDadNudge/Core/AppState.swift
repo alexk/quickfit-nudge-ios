@@ -8,6 +8,8 @@ final class AppState: ObservableObject {
     @Published var hasCompletedOnboarding = false
     @Published var isLoading = false
     @Published var error: Error?
+    @Published var showingWorkoutPlayer = false
+    @Published var pendingWorkout: Workout?
     
     // MARK: - Tab Enum
     enum Tab: Int, CaseIterable {
