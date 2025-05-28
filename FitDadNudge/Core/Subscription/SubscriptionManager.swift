@@ -9,6 +9,7 @@ final class SubscriptionManager: ObservableObject {
     // Product IDs
     private let monthlyProductID = "com.fitdad.nudge.monthly"
     private let yearlyProductID = "com.fitdad.nudge.yearly"
+    private let teamProductID = "com.fitdad.nudge.team"
     
     @Published private(set) var subscriptions: [Product] = []
     @Published private(set) var purchasedSubscriptions: [Product] = []
@@ -41,7 +42,7 @@ final class SubscriptionManager: ObservableObject {
         defer { isLoading = false }
         
         do {
-            subscriptions = try await Product.products(for: [monthlyProductID, yearlyProductID])
+            subscriptions = try await Product.products(for: [monthlyProductID, yearlyProductID, teamProductID])
             logInfo("Loaded \(subscriptions.count) products", category: .subscription)
         } catch {
             logError("Failed to load products: \(error)", category: .subscription)
@@ -105,6 +106,8 @@ final class SubscriptionManager: ObservableObject {
         } else if let firstSub = purchasedSubs.first {
             if firstSub.id == yearlyProductID {
                 subscriptionStatus = .premium(.yearly)
+            } else if firstSub.id == teamProductID {
+                subscriptionStatus = .team
             } else {
                 subscriptionStatus = .premium(.monthly)
             }
@@ -138,6 +141,7 @@ enum SubscriptionStatus: Equatable {
     case none
     case trial(daysRemaining: Int)
     case premium(PlanType)
+    case team
     case expired
     
     enum PlanType: String {
@@ -147,7 +151,7 @@ enum SubscriptionStatus: Equatable {
     
     var isActive: Bool {
         switch self {
-        case .premium, .trial:
+        case .premium, .trial, .team:
             return true
         case .none, .expired:
             return false
@@ -162,8 +166,17 @@ enum SubscriptionStatus: Equatable {
             return "Trial (\(days) days left)"
         case .premium(let plan):
             return "Premium \(plan.rawValue)"
+        case .team:
+            return "Team Plan"
         case .expired:
             return "Expired"
+        }
+    }
+    
+    var allowsTeamFeatures: Bool {
+        switch self {
+        case .team: return true
+        default: return false
         }
     }
 }

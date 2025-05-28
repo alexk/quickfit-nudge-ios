@@ -124,6 +124,12 @@ struct SettingsView: View {
             }
             .padding(.vertical, 4)
             
+            if subscriptionManager.subscriptionStatus.allowsTeamFeatures {
+                NavigationLink(destination: AdminDashboardView()) {
+                    Label("Team Dashboard", systemImage: "person.3.sequence.fill")
+                }
+            }
+            
             if subscriptionManager.subscriptionStatus.isActive {
                 Button(action: {}) {
                     Label("Manage Subscription", systemImage: "creditcard")
