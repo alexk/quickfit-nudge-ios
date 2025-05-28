@@ -36,8 +36,13 @@ final class KeychainManager {
         
         // Add new item
         let status = SecItemAdd(query as CFDictionary, nil)
-        if status != errSecSuccess {
+        if status != errSecSuccess && status != errSecDuplicateItem {
             logError("Error saving to keychain: \(status)", category: .auth)
+            
+            // Handle specific error cases
+            if status == errSecInteractionNotAllowed {
+                logError("Keychain access denied - device may be locked", category: .auth)
+            }
         }
     }
     
@@ -57,6 +62,13 @@ final class KeychainManager {
            let data = dataTypeRef as? Data,
            let value = String(data: data, encoding: .utf8) {
             return value
+        } else if status != errSecItemNotFound {
+            // Log non-trivial errors
+            if status == errSecInteractionNotAllowed {
+                logError("Keychain read denied - device may be locked", category: .auth)
+            } else {
+                logError("Error reading from keychain: \(status)", category: .auth)
+            }
         }
         
         return nil
