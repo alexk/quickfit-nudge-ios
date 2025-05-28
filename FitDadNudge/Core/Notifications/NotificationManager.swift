@@ -9,6 +9,7 @@ final class NotificationManager: ObservableObject {
     @Published private(set) var pendingNotifications: [UNNotificationRequest] = []
     
     private let notificationCenter = UNUserNotificationCenter.current()
+    private let intelligence = NotificationIntelligence()
     
     private init() {
         Task {
@@ -39,6 +40,13 @@ final class NotificationManager: ObservableObject {
             throw NotificationError.notAuthorized
         }
         
+        // Check with intelligence system before scheduling
+        let context = await buildNotificationContext(for: .gapReminder)
+        guard intelligence.shouldSendNotification(type: .gapReminder, context: context) else {
+            logDebug("Intelligence system blocked gap notification", category: .notification)
+            return
+        }
+        
         // Schedule notification 5 minutes before the gap
         let triggerDate = gap.startDate.addingTimeInterval(-5 * 60)
         
@@ -53,10 +61,9 @@ final class NotificationManager: ObservableObject {
         content.userInfo = [
             "gapID": gap.id.uuidString,
             "workoutType": gap.suggestedWorkoutType.rawValue,
-            "duration": gap.duration
+            "duration": gap.duration,
+            "notificationType": NotificationIntelligence.NotificationType.gapReminder.rawValue
         ]
-        
-        // Category identifier is already set above
         
         let trigger = UNCalendarNotificationTrigger(
             dateMatching: Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: triggerDate),
@@ -71,6 +78,9 @@ final class NotificationManager: ObservableObject {
         
         try await notificationCenter.add(request)
         await updatePendingNotifications()
+        
+        // Record the notification with intelligence system
+        intelligence.recordNotificationSent(type: .gapReminder)
     }
     
     func cancelNotification(for gapID: UUID) async {
@@ -88,11 +98,21 @@ final class NotificationManager: ObservableObject {
             throw NotificationError.notAuthorized
         }
         
+        // Check with intelligence system before scheduling
+        let context = await buildNotificationContext(for: .streakRisk)
+        guard intelligence.shouldSendNotification(type: .streakRisk, context: context) else {
+            logDebug("Intelligence system blocked streak reminder", category: .notification)
+            return
+        }
+        
         let content = UNMutableNotificationContent()
         content.title = "Your streak is counting on you"
         content.body = "Just a few minutes today keeps your momentum going strong 🔥"
         content.sound = .default
         content.categoryIdentifier = "STREAK_REMINDER"
+        content.userInfo = [
+            "notificationType": NotificationIntelligence.NotificationType.streakRisk.rawValue
+        ]
         
         var dateComponents = DateComponents()
         dateComponents.hour = hour
@@ -111,6 +131,9 @@ final class NotificationManager: ObservableObject {
         
         try await notificationCenter.add(request)
         await updatePendingNotifications()
+        
+        // Record the notification with intelligence system
+        intelligence.recordNotificationSent(type: .streakRisk)
     }
     
     func registerNotificationCategories() {
@@ -154,6 +177,46 @@ final class NotificationManager: ObservableObject {
     private func updatePendingNotifications() async {
         pendingNotifications = await notificationCenter.pendingNotificationRequests()
     }
+    
+    private func buildNotificationContext(for type: NotificationIntelligence.NotificationType) async -> NotificationIntelligence.NotificationContext {
+        // Get recent notification history
+        let recentHistory = getRecentNotificationHistory()
+        let lastNotificationTime = recentHistory.last?.sentAt
+        
+        // Calculate response rate from recent interactions
+        let totalRecent = recentHistory.count
+        let respondedRecent = recentHistory.filter { $0.wasOpened }.count
+        let responseRate = totalRecent > 0 ? Double(respondedRecent) / Double(totalRecent) : 0.5
+        
+        // Calculate recent ignored count
+        let recentIgnored = recentHistory.filter { $0.wasIgnored }.count
+        
+        // Mock data for user state - in a real app, this would come from user managers
+        let mockCurrentStreak = 5 // This would come from StreakManager
+        let mockLastWorkoutHours = 8 // This would come from workout tracking
+        let mockTypicalActiveHours = [9, 12, 15, 18] // This would be learned from user behavior
+        
+        return NotificationIntelligence.NotificationContext(
+            lastNotificationTime: lastNotificationTime,
+            userResponseRate: responseRate,
+            currentStreakLength: mockCurrentStreak,
+            typicalActiveHours: mockTypicalActiveHours,
+            recentIgnoredCount: recentIgnored,
+            lastWorkoutHours: mockLastWorkoutHours,
+            hasUpcomingGap: true, // This would come from CalendarManager
+            upcomingGapMinutes: 5 // This would come from CalendarManager
+        )
+    }
+    
+    private func getRecentNotificationHistory() -> [NotificationRecord] {
+        // Get history from intelligence system
+        return intelligence.getNotificationFrequencyInsights().totalSent > 0 ? [] : []
+        // In a real implementation, this would fetch from intelligence system storage
+    }
+    
+    private func logDebug(_ message: String, category: LogCategory) {
+        Logger.shared.debug(message, category: category)
+    }
 }
 
 // MARK: - Notification Errors
@@ -173,6 +236,8 @@ enum NotificationError: LocalizedError {
 
 // MARK: - Notification Delegate
 class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
+    private let intelligence = NotificationIntelligence()
+    
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification,
@@ -188,6 +253,24 @@ class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
         let userInfo = response.notification.request.content.userInfo
+        
+        // Track notification interaction
+        if let notificationTypeString = userInfo["notificationType"] as? String,
+           let notificationType = NotificationIntelligence.NotificationType(rawValue: notificationTypeString) {
+            
+            switch response.actionIdentifier {
+            case "START_WORKOUT", UNNotificationDefaultActionIdentifier:
+                Task { @MainActor in
+                    intelligence.recordNotificationOpened(type: notificationType)
+                }
+            case "DISMISS_WORKOUT", UNNotificationDismissActionIdentifier:
+                Task { @MainActor in
+                    intelligence.recordNotificationIgnored(type: notificationType)
+                }
+            default:
+                break
+            }
+        }
         
         switch response.actionIdentifier {
         case "START_WORKOUT":

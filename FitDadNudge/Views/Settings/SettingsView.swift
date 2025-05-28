@@ -133,8 +133,8 @@ struct SettingsView: View {
     
     private var notificationsSection: some View {
         Section("Notifications") {
-            Toggle(isOn: $notificationsEnabled) {
-                Label("Push Notifications", systemImage: "bell")
+            NavigationLink(destination: NotificationSettingsView()) {
+                Label("Notification Settings", systemImage: "bell.badge")
             }
             
             Toggle(isOn: $workoutRemindersEnabled) {
