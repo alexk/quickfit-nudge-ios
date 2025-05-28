@@ -145,7 +145,7 @@ struct AccessibilityIdentifiers {
 
 // MARK: - Dynamic Type Support
 extension View {
-    func dynamicTypeSize(_ range: ClosedRange<DynamicTypeSize>) -> some View {
+    func restrictDynamicTypeSize(_ range: ClosedRange<DynamicTypeSize>) -> some View {
         self.dynamicTypeSize(range)
     }
     
