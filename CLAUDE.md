@@ -18,16 +18,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 # Build for iOS Simulator
-xcodebuild -project FitDadNudge.xcodeproj -scheme FitDadNudge -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.0' build
+xcodebuild -project QuickFitNudge.xcodeproj -scheme QuickFitNudge -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.0' build
 
 # Build for device
-xcodebuild -project FitDadNudge.xcodeproj -scheme FitDadNudge -destination 'platform=iOS,name=Your Device' build
+xcodebuild -project QuickFitNudge.xcodeproj -scheme QuickFitNudge -destination 'platform=iOS,name=Your Device' build
 
 # Run tests
-xcodebuild test -project FitDadNudge.xcodeproj -scheme FitDadNudge -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.0'
+xcodebuild test -project QuickFitNudge.xcodeproj -scheme QuickFitNudge -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.0'
 
 # Build verification
-xcodebuild -project FitDadNudge.xcodeproj -scheme FitDadNudge clean build
+xcodebuild -project QuickFitNudge.xcodeproj -scheme QuickFitNudge clean build
 
 # SwiftLint (configured in .swiftlint.yml)
 swiftlint
@@ -40,7 +40,7 @@ swiftlint
 The app follows MVVM architecture with Clean Architecture principles:
 
 ```
-FitDadNudge/
+QuickFitNudge/
 ├── Core/                    # Business logic and managers
 │   ├── Analytics/           # User analytics and tracking
 │   ├── Authentication/      # User authentication (Sign in with Apple)
@@ -75,7 +75,7 @@ FitDadNudge/
 
 ### Key Components
 
-1. **CloudKit Integration**: Backend using `iCloud.com.fitdad.nudge` container
+1. **CloudKit Integration**: Backend using `iCloud.com.quickfit.nudge` container
 2. **Gap Detection Engine**: Finds 1-5 minute calendar gaps with quality scoring
 3. **Structured Logging**: Uses os_log with categorized logging (Logger.swift)
 4. **Widget Extension**: Shows next workout gap on home screen
@@ -87,15 +87,15 @@ FitDadNudge/
 ## Critical Configuration
 
 ### Bundle Identifiers
-- **iOS**: `com.fitdad.nudge` (currently using `abk.FitDadNudge` - needs update)
-- **watchOS**: `com.fitdad.nudge.watchkitapp`
-- **Widget**: `com.fitdad.nudge.widget`
+- **iOS**: `com.quickfit.nudge` (currently using `abk.QuickFitNudge` - needs update)
+- **watchOS**: `com.quickfit.nudge.watchkitapp`
+- **Widget**: `com.quickfit.nudge.widget`
 
 ### Required Capabilities
 - Sign in with Apple
 - CloudKit
 - HealthKit
-- App Groups (`group.com.fitdad.nudge`)
+- App Groups (`group.com.quickfit.nudge`)
 - Push Notifications
 
 ### Platform Support
@@ -178,18 +178,18 @@ import UIKit
 - **Solution**: Replaced with structured logging using `Logger.swift`
 
 ### ⚠️ REMAINING: Bundle ID Configuration
-- **Issue**: Using default "abk.FitDadNudge" 
+- **Issue**: Using default "abk.QuickFitNudge" 
 - **Action**: Change in Xcode project settings to your developer account
 
 ## Testing Strategy
 
 ### Unit Tests ✅
-- **Location**: `FitDadNudgeTests/Core/`
+- **Location**: `QuickFitNudgeTests/Core/`
 - **Coverage**: 95+ tests covering all core managers
 - **Files**: CalendarManagerTests, AuthenticationManagerTests, SubscriptionManagerTests, NotificationManagerTests, StreakManagerTests
 
 ### UI Tests 🔄
-- **Location**: `FitDadNudgeUITests/` (needs expansion)
+- **Location**: `QuickFitNudgeUITests/` (needs expansion)
 - **Todo**: Add comprehensive UI test flows
 
 ### Performance Targets

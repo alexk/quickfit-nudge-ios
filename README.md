@@ -84,7 +84,7 @@ We count your wins without making you think about it. Check your widget to see s
 ```bash
 git clone https://github.com/alexk/quickfit-nudge-ios.git
 cd quickfit-nudge-ios
-open FitDadNudge.xcodeproj
+open QuickFitNudge.xcodeproj
 ```
 
 Configure your development team in Xcode signing settings and you're ready to build!
@@ -122,10 +122,10 @@ Models/                   # Data structures
 
 ```bash
 # Build & run
-xcodebuild -project FitDadNudge.xcodeproj -scheme FitDadNudge build
+xcodebuild -project QuickFitNudge.xcodeproj -scheme QuickFitNudge build
 
 # Test suite
-xcodebuild test -project FitDadNudge.xcodeproj -scheme FitDadNudge
+xcodebuild test -project QuickFitNudge.xcodeproj -scheme QuickFitNudge
 ```
 
 ### App Store Deployment
